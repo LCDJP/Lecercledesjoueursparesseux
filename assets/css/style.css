@@ -1171,3 +1171,7 @@ body.lightbox-open { overflow: hidden; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+
+/* V5 — pages SEO locales */
+.content-narrow{max-width:850px}.content-narrow p{font-size:1.08rem;line-height:1.75}.subpage-hero{padding:7rem 0 5rem}.subpage-hero .container{max-width:900px}.subpage-hero h1{max-width:850px}.page-nav{display:flex}.text-link{display:inline-block;margin-top:1rem;font-weight:800;text-decoration:none}.discovery-callout{margin-top:2rem;padding:1.5rem 1.75rem;border-radius:20px;background:rgba(38,63,50,.08)}.discovery-callout strong{font-size:1.2rem}.discovery-callout p{margin:.5rem 0 0;line-height:1.7}.seo-universe-grid .universe-card{display:flex;flex-direction:column}.seo-universe-grid .text-link{margin-top:auto;padding-top:1rem}@media(max-width:900px){.page-nav{display:none}.subpage-hero{padding:5rem 0 3.5rem}}
