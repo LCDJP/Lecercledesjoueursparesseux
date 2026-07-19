@@ -1,68 +1,103 @@
-# Le Cercle des joueurs paresseux
+# Le Cercle des Joueurs Paresseux — V2.0
 
-Site vitrine statique de l'association, section du Foyer Rural de Vailhauquès.
+Cette archive remplace entièrement la V1 du site.
 
-## Structure
+## Contenu
 
-- `index.html` : page d'accueil
-- `css/style.css` : mise en forme
-- `js/script.js` : menu mobile et animations
-- `images/logo.png` : logo
-- `images/galerie/` : vos photos
+```text
+index.html
+assets/
+├── css/
+│   └── style.css
+├── js/
+│   └── script.js
+└── images/
+    ├── logo.png
+    ├── galerie/
+    └── jeux/
+README.md
+```
 
-## Ajouter vos photos
+## Mise à jour sur GitHub
 
-1. Placez vos fichiers dans `images/galerie/`.
-2. Dans `index.html`, remplacez un bloc :
+1. Décompressez l'archive.
+2. Dans le dépôt GitHub, supprimez les anciens fichiers de la V1 ou remplacez-les.
+3. Importez **le contenu du dossier `LCDJP_V2.0`**, et non le dossier lui-même.
+4. Vérifiez que `index.html` est directement visible à la racine du dépôt.
+5. Cliquez sur **Commit changes**.
+6. GitHub Pages republiera automatiquement le site après quelques minutes.
+
+## Ajouter les liens Facebook et Instagram
+
+Dans `index.html`, recherchez :
 
 ```html
-<figure class="gallery-placeholder">
-  <span>Soirée jeux de société</span>
+data-social="facebook"
+data-social="instagram"
+```
+
+Remplacez le `href="#"` correspondant par l'adresse complète de la page.
+
+## Ajouter des photos à la galerie
+
+Placez vos images dans :
+
+```text
+assets/images/galerie/
+```
+
+Puis remplacez par exemple :
+
+```html
+<figure class="gallery-tile">
+  <span>Jeux de société</span>
 </figure>
 ```
 
 par :
 
 ```html
-<figure>
-  <img src="images/galerie/nom-de-la-photo.jpg" alt="Description de la photo">
+<figure class="gallery-tile gallery-photo">
+  <img src="assets/images/galerie/soiree-jeux.jpg"
+       alt="Des membres réunis autour d'un jeu de société">
 </figure>
 ```
 
-Vous pouvez ajouter dans `css/style.css` :
+Ajoutez ensuite à la fin de `assets/css/style.css` :
 
 ```css
-.gallery-grid figure {
-  margin: 0;
+.gallery-photo {
   overflow: hidden;
-  border-radius: 18px;
+  padding: 0;
 }
 
-.gallery-grid img {
+.gallery-photo img {
   width: 100%;
-  height: 220px;
+  height: 100%;
   object-fit: cover;
 }
 ```
 
-## Liens Facebook et Instagram
+## Modifier le jeu du moment
 
 Dans `index.html`, recherchez :
 
-```html
-href="#"
+```text
+Le jeu du moment
 ```
 
-et remplacez les deux liens par les adresses de vos pages.
+Vous pourrez remplacer le titre, le texte et les informations.
 
-## Mise en ligne sur GitHub Pages
+## Adresse du club
 
-1. Créez un dépôt GitHub.
-2. Importez tous les fichiers en conservant les dossiers.
-3. Ouvrez `Settings` puis `Pages`.
-4. Choisissez la branche `main` et le dossier `/root`.
-5. Enregistrez.
+La V2.0 utilise :
 
-Le site sera ensuite accessible à une adresse de type :
+```text
+Salle de l'Âge d'Or
+19 Route de Montarnaud
+34570 Vailhauquès
+```
 
-`https://votre-compte.github.io/nom-du-depot/`
+## Important
+
+Ne renommez pas les dossiers `assets`, `css`, `js` ou `images` sans mettre à jour les chemins dans `index.html`.

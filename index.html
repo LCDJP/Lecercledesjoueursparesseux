@@ -1,272 +1,390 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Le Cercle des joueurs paresseux | Jeux à Vailhauquès</title>
-  <meta name="description" content="Le Cercle des joueurs paresseux est une section du Foyer Rural de Vailhauquès. Jeux de société, figurines et cartes tous les vendredis soir près de Montpellier.">
-  <meta name="keywords" content="jeux de société Montpellier, Warhammer Montpellier, Age of Sigmar Montpellier, club figurines Hérault, association jeux Vailhauquès">
-  <meta name="author" content="Le Cercle des joueurs paresseux">
+  <title>Le Cercle des Joueurs Paresseux | Jeux à Vailhauquès</title>
+  <meta name="description" content="Club de jeux de société, jeux de figurines et jeux de cartes à Vailhauquès, près de Montpellier. Rendez-vous chaque vendredi à 20 h 30.">
+  <meta name="theme-color" content="#263f32">
 
-  <meta property="og:title" content="Le Cercle des joueurs paresseux">
-  <meta property="og:description" content="Jeux de société, figurines et cartes tous les vendredis soir à Vailhauquès.">
+  <meta property="og:title" content="Le Cercle des Joueurs Paresseux">
+  <meta property="og:description" content="Prenez votre temps. Lancez les dés. Tous les vendredis à 20 h 30 à Vailhauquès.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="images/logo.png">
+  <meta property="og:image" content="assets/images/logo.png">
 
-  <link rel="icon" href="images/logo.png">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="#accueil" aria-label="Retour à l'accueil">
-        <img src="images/logo.png" alt="Logo du Cercle des joueurs paresseux">
-        <span>Le Cercle des joueurs paresseux</span>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="site-header" id="accueil">
+    <div class="container nav-shell">
+      <a class="brand" href="#accueil" aria-label="Accueil du Cercle des Joueurs Paresseux">
+        <img src="assets/images/logo.png" alt="">
+        <span>
+          <strong>Le Cercle</strong>
+          <small>des Joueurs Paresseux</small>
+        </span>
       </a>
 
-      <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navigation">
+        <span class="sr-only">Ouvrir le menu</span>
         <span></span><span></span><span></span>
       </button>
 
-      <nav class="main-nav" aria-label="Navigation principale">
-        <a href="#association">L'association</a>
-        <a href="#activites">Nos jeux</a>
+      <nav class="main-nav" id="navigation" aria-label="Navigation principale">
+        <a href="#club">Le club</a>
+        <a href="#univers">Nos jeux</a>
+        <a href="#premiere-visite">Première visite</a>
         <a href="#galerie">Galerie</a>
-        <a href="#venir">Nous rejoindre</a>
+        <a class="nav-cta" href="#venir">Nous rejoindre</a>
       </nav>
     </div>
   </header>
 
-  <main>
-    <section class="hero" id="accueil">
-      <div class="hero-overlay"></div>
-      <div class="container hero-content">
-        <div class="hero-logo-card">
-          <img src="images/logo.png" alt="Logo du Cercle des joueurs paresseux">
-        </div>
-
+  <main id="contenu">
+    <section class="hero">
+      <div class="hero-pattern" aria-hidden="true"></div>
+      <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Vailhauquès · Hérault</p>
-          <h1>Prenez votre temps.<br>Lancez les dés.</h1>
-          <p class="hero-lead">
-            Jeux de société, jeux de figurines et jeux de cartes,
-            chaque vendredi soir dans une ambiance conviviale.
+          <p class="eyebrow">Club de jeux à Vailhauquès</p>
+          <h1>Prenez votre temps.<br><span>Lancez les dés.</span></h1>
+          <p class="hero-intro">
+            Jeux de société, jeux de figurines et jeux de cartes dans une ambiance
+            conviviale, tous les vendredis soir près de Montpellier.
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#venir">Venir un vendredi</a>
-            <a class="btn btn-secondary" href="#activites">Découvrir nos activités</a>
+            <a class="button button-primary" href="#venir">Je viens vendredi</a>
+            <a class="button button-ghost" href="#univers">Découvrir le club</a>
           </div>
 
-          <ul class="quick-info" aria-label="Informations pratiques">
-            <li><strong>Tous les vendredis</strong><span>à partir de 20 h 30</span></li>
-            <li><strong>Salle de l'Âge d'Or</strong><span>19 Route de Montarnaud</span></li>
-            <li><strong>Nouveaux joueurs bienvenus</strong><span>débutants comme confirmés</span></li>
+          <ul class="hero-facts">
+            <li>
+              <strong>Vendredi</strong>
+              <span>à partir de 20 h 30</span>
+            </li>
+            <li>
+              <strong>Vailhauquès</strong>
+              <span>Salle de l'Âge d'Or</span>
+            </li>
+            <li>
+              <strong>Ouvert à tous</strong>
+              <span>débutants et habitués</span>
+            </li>
           </ul>
         </div>
-      </div>
-    </section>
 
-    <section class="welcome-strip">
-      <div class="container welcome-inner">
-        <div>
-          <span class="welcome-icon">🎲</span>
-          <div>
-            <strong>Première soirée ?</strong>
-            <p>Venez simplement nous rencontrer : nous expliquons les règles et vous aidons à trouver une table.</p>
+        <div class="hero-visual">
+          <div class="logo-stage">
+            <div class="logo-halo"></div>
+            <img src="assets/images/logo.png" alt="Logo du Cercle des Joueurs Paresseux">
+          </div>
+          <div class="floating-card floating-card-one">
+            <span>🎲</span>
+            <strong>Jeux de société</strong>
+          </div>
+          <div class="floating-card floating-card-two">
+            <span>⚔️</span>
+            <strong>Figurines</strong>
+          </div>
+          <div class="floating-card floating-card-three">
+            <span>🃏</span>
+            <strong>Jeux de cartes</strong>
           </div>
         </div>
-        <a class="text-link" href="#venir">Informations pratiques →</a>
       </div>
     </section>
 
-    <section class="section" id="association">
-      <div class="container two-columns">
-        <div>
-          <p class="section-kicker">Qui sommes-nous ?</p>
-          <h2>Un cercle ouvert à toutes les façons de jouer</h2>
-          <p>
-            <strong>Le Cercle des joueurs paresseux</strong> est une section du
-            <strong>Foyer Rural de Vailhauquès</strong>. Nous réunissons des passionnés
-            de jeux de société, de figurines et de cartes dans un esprit simple :
-            partager de bonnes parties et accueillir de nouveaux joueurs.
+    <section class="announcement">
+      <div class="container announcement-inner">
+        <div class="announcement-copy">
+          <span class="announcement-icon">✨</span>
+          <div>
+            <strong>Votre première soirée peut commencer sans préparation.</strong>
+            <p>Venez seul ou accompagné : nous vous présentons les joueurs et vous trouvons une table.</p>
+          </div>
+        </div>
+        <a href="#premiere-visite">Comment ça se passe ?</a>
+      </div>
+    </section>
+
+    <section class="section about" id="club">
+      <div class="container split-layout">
+        <div class="section-copy">
+          <p class="section-label">Le club</p>
+          <h2>Une table ouverte, un jeu à découvrir, une soirée à partager</h2>
+          <p class="lead">
+            Le Cercle des Joueurs Paresseux est une section du
+            <strong>Foyer Rural de Vailhauquès</strong>.
           </p>
           <p>
-            Nos soirées se déroulent à la <strong>Salle de l'Âge d'Or</strong>,
-            au 19 Route de Montarnaud, 34570 Vailhauquès.
+            Nous réunissons des joueurs aux goûts très variés : jeux familiaux,
+            jeux experts, coopération, stratégie, affrontements de figurines ou jeux de cartes.
+            L'important n'est pas de tout connaître, mais d'avoir envie de jouer.
           </p>
           <p>
-            Vous pouvez venir seul, avec des amis ou avec un jeu que vous souhaitez
-            faire découvrir. Il y a toujours une place autour de la table.
+            La ludothèque de l'association grandit progressivement. Elle est complétée
+            chaque semaine par les importantes collections personnelles de nos membres.
           </p>
         </div>
 
-        <aside class="quote-card">
-          <p>« Au Cercle, on peut prendre le jeu au sérieux sans jamais se prendre au sérieux. »</p>
+        <aside class="manifesto">
+          <span class="manifesto-mark">“</span>
+          <p>On peut prendre le jeu au sérieux sans jamais se prendre au sérieux.</p>
+          <span class="manifesto-signature">L'esprit du Cercle</span>
         </aside>
       </div>
     </section>
 
-    <section class="section section-alt" id="activites">
+    <section class="section universe-section" id="univers">
       <div class="container">
-        <p class="section-kicker">Nos univers</p>
-        <h2>Des dés, des armées, des cartes… et beaucoup de passion</h2>
+        <div class="section-heading">
+          <div>
+            <p class="section-label">Nos univers</p>
+            <h2>Trois façons de passer une excellente soirée</h2>
+          </div>
+          <p>
+            Vous pouvez venir avec une idée précise ou simplement vous laisser guider
+            par les tables disponibles.
+          </p>
+        </div>
 
-        <div class="cards-grid">
-          <article class="activity-card">
-            <div class="activity-icon">🎲</div>
+        <div class="universe-grid">
+          <article class="universe-card">
+            <div class="card-number">01</div>
+            <div class="universe-icon">🎲</div>
             <h3>Jeux de société</h3>
             <p>
-              Jeux familiaux, jeux d'ambiance, stratégie, coopération, gestion ou jeux experts :
-              les collections de nos membres permettent de varier les plaisirs chaque semaine.
+              Ambiance, stratégie, coopération, gestion, enquête ou jeux experts :
+              chaque vendredi apporte de nouvelles propositions.
             </p>
-            <p class="small-note">
-              Notre ludothèque associative se constitue progressivement, tandis que nos joueurs
-              mettent déjà à disposition de très importantes collections personnelles.
-            </p>
+            <ul>
+              <li>Règles expliquées sur place</li>
+              <li>Collections des membres</li>
+              <li>Formats courts ou longues parties</li>
+            </ul>
           </article>
 
-          <article class="activity-card featured-card">
-            <div class="activity-icon">⚔️</div>
+          <article class="universe-card universe-card-featured">
+            <div class="card-number">02</div>
+            <div class="universe-icon">⚔️</div>
             <h3>Jeux de figurines</h3>
             <p>
-              Nous jouons surtout à <strong>Warhammer 40,000</strong>,
-              <strong>Age of Sigmar</strong> et <strong>StarCraft</strong>.
+              Warhammer 40,000, Age of Sigmar et StarCraft sont les systèmes les plus
+              pratiqués, mais toutes les armées et tous les univers sont les bienvenus.
             </p>
-            <p>
-              Nous sommes ouverts à tous les autres systèmes, formats et propositions.
-              Vous cherchez des partenaires de jeu près de Montpellier ? Venez nous rencontrer.
-            </p>
-            <span class="badge">Joueurs recherchés</span>
+            <ul>
+              <li>Joueurs recherchés</li>
+              <li>Débutants acceptés</li>
+              <li>Autres systèmes bienvenus</li>
+            </ul>
+            <span class="status-badge">Nouveaux adversaires bienvenus</span>
           </article>
 
-          <article class="activity-card">
-            <div class="activity-icon">🃏</div>
+          <article class="universe-card">
+            <div class="card-number">03</div>
+            <div class="universe-icon">🃏</div>
             <h3>Jeux de cartes</h3>
             <p>
-              Parties amicales, découvertes et échanges entre joueurs. Apportez votre jeu préféré
-              ou laissez-vous guider par les envies du groupe.
+              Parties amicales, découvertes et échanges entre joueurs dans une ambiance
+              détendue, quel que soit votre niveau.
             </p>
+            <ul>
+              <li>Parties libres</li>
+              <li>Découverte de nouveaux jeux</li>
+              <li>Apportez vos decks et vos idées</li>
+            </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section first-visit">
+    <section class="section first-visit" id="premiere-visite">
       <div class="container first-visit-grid">
-        <div>
-          <p class="section-kicker">Votre première visite</p>
+        <div class="first-visit-copy">
+          <p class="section-label light-label">Première visite</p>
           <h2>Vous pouvez venir sans connaître personne</h2>
           <p>
-            Beaucoup de membres ont commencé ainsi. Présentez-vous simplement en arrivant :
-            nous vous accueillerons, vous présenterons les joueurs présents et vous proposerons
-            une partie adaptée à vos envies.
+            Présentez-vous simplement en arrivant. Nous vous accueillons, vous montrons
+            les tables disponibles et vous proposons un jeu adapté à vos envies.
           </p>
+          <a class="button button-light" href="#venir">Voir les informations pratiques</a>
         </div>
 
-        <div class="check-list">
-          <div><span>✓</span> Pas besoin de connaître les règles</div>
-          <div><span>✓</span> Pas besoin d'apporter un jeu</div>
-          <div><span>✓</span> Tous niveaux acceptés</div>
-          <div><span>✓</span> Figurines et autres systèmes bienvenus</div>
+        <div class="steps">
+          <div class="step">
+            <span>1</span>
+            <div>
+              <strong>Vous arrivez à 20 h 30</strong>
+              <p>Pas besoin d'inscription préalable pour venir découvrir l'ambiance.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span>2</span>
+            <div>
+              <strong>On vous présente les joueurs</strong>
+              <p>Vous pouvez venir seul, avec des amis ou avec votre propre jeu.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span>3</span>
+            <div>
+              <strong>Vous rejoignez une table</strong>
+              <p>Les règles sont expliquées et personne n'est laissé de côté.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section section-alt" id="galerie">
+    <section class="section monthly-game">
+      <div class="container monthly-game-card">
+        <div class="monthly-game-image placeholder-image">
+          <span>Photo du jeu du mois</span>
+        </div>
+        <div class="monthly-game-copy">
+          <p class="section-label">Le jeu du moment</p>
+          <h2>Un emplacement simple à actualiser</h2>
+          <p>
+            Cette section pourra présenter chaque mois un jeu apprécié par le club :
+            photo, durée, nombre de joueurs et quelques mots sur ce qui plaît aux membres.
+          </p>
+          <div class="game-meta">
+            <span>⏱ Durée</span>
+            <span>👥 Joueurs</span>
+            <span>🎯 Difficulté</span>
+          </div>
+          <p class="editor-note">
+            Dans <code>index.html</code>, recherchez « Le jeu du moment » pour remplacer ce contenu.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery-section" id="galerie">
       <div class="container">
-        <p class="section-kicker">La vie du Cercle</p>
-        <h2>Galerie photo</h2>
-        <p class="gallery-intro">
-          Remplacez les images d'exemple par vos propres photos dans le dossier
-          <code>images/galerie</code>, puis modifiez les chemins dans ce fichier.
-        </p>
+        <div class="section-heading">
+          <div>
+            <p class="section-label">La vie du Cercle</p>
+            <h2>Vos photos feront toute la différence</h2>
+          </div>
+          <p>
+            Ajoutez vos meilleures images dans <code>assets/images/galerie</code>.
+            Le fichier README explique exactement comment remplacer ces blocs.
+          </p>
+        </div>
 
         <div class="gallery-grid">
-          <figure class="gallery-placeholder"><span>Soirée jeux de société</span></figure>
-          <figure class="gallery-placeholder"><span>Table de figurines</span></figure>
-          <figure class="gallery-placeholder"><span>Événement du village</span></figure>
-          <figure class="gallery-placeholder"><span>Partie en cours</span></figure>
-          <figure class="gallery-placeholder"><span>Peinture et armées</span></figure>
-          <figure class="gallery-placeholder"><span>Ambiance du vendredi</span></figure>
+          <figure class="gallery-tile tile-large"><span>Grande photo d'ambiance</span></figure>
+          <figure class="gallery-tile"><span>Jeux de société</span></figure>
+          <figure class="gallery-tile"><span>Figurines</span></figure>
+          <figure class="gallery-tile"><span>Événement local</span></figure>
+          <figure class="gallery-tile tile-wide"><span>Une table en pleine partie</span></figure>
+          <figure class="gallery-tile"><span>Moments du vendredi</span></figure>
         </div>
       </div>
     </section>
 
-    <section class="section location-section" id="venir">
-      <div class="container location-grid">
-        <div>
-          <p class="section-kicker">Nous rejoindre</p>
-          <h2>Rendez-vous chaque vendredi à Vailhauquès</h2>
+    <section class="section visit-section" id="venir">
+      <div class="container visit-grid">
+        <div class="visit-copy">
+          <p class="section-label">Nous rejoindre</p>
+          <h2>Chaque vendredi à Vailhauquès</h2>
+          <p class="lead">
+            Une soirée régulière, facile à retenir et ouverte aux nouveaux joueurs.
+          </p>
 
-          <div class="practical-card">
-            <div>
-              <span class="practical-label">Quand ?</span>
-              <strong>Tous les vendredis à partir de 20 h 30</strong>
+          <div class="practical-list">
+            <div class="practical-item">
+              <span class="practical-icon">🗓️</span>
+              <div>
+                <small>Quand ?</small>
+                <strong>Tous les vendredis à partir de 20 h 30</strong>
+              </div>
             </div>
-            <div>
-              <span class="practical-label">Où ?</span>
-              <strong>Salle de l'Âge d'Or</strong>
-              <span>19 Route de Montarnaud, 34570 Vailhauquès</span>
+            <div class="practical-item">
+              <span class="practical-icon">📍</span>
+              <div>
+                <small>Où ?</small>
+                <strong>Salle de l'Âge d'Or</strong>
+                <span>19 Route de Montarnaud, 34570 Vailhauquès</span>
+              </div>
             </div>
-            <div>
-              <span class="practical-label">Pour qui ?</span>
-              <strong>Débutants, habitués et curieux</strong>
+            <div class="practical-item">
+              <span class="practical-icon">👋</span>
+              <div>
+                <small>Pour qui ?</small>
+                <strong>Débutants, habitués et curieux</strong>
+              </div>
             </div>
           </div>
 
-          <div class="social-actions">
-            <a class="btn btn-primary" href="https://www.facebook.com/people/Le-Cercle-des-Joueurs-Paresseux/61553506266229/" aria-label="Lien Facebook à compléter">Facebook</a>
-            <a class="btn btn-secondary" href="https://www.instagram.com/lecercledesjoueursparesseux/" aria-label="Lien Instagram à compléter">Instagram</a>
+          <div class="social-row">
+            <a class="button button-primary" href="#" data-social="facebook">Facebook</a>
+            <a class="button button-outline" href="#" data-social="instagram">Instagram</a>
+            <a class="button button-outline" href="https://www.openstreetmap.org/search?query=19%20Route%20de%20Montarnaud%2034570%20Vailhauqu%C3%A8s" target="_blank" rel="noopener">Ouvrir la carte</a>
           </div>
 
-          <p class="edit-note">
-            Remplacez les liens <code>#</code> ci-dessus par les adresses de vos pages Facebook et Instagram.
+          <p class="editor-note">
+            Remplacez les liens Facebook et Instagram dans <code>index.html</code>.
           </p>
         </div>
 
-        <div class="map-card">
-          <div class="map-placeholder">
-            <span>Carte à intégrer</span>
-            <p>
-              Vous pouvez remplacer ce bloc par une carte OpenStreetMap ou Google Maps.
-            </p>
+        <div class="location-card">
+          <div class="location-top">
+            <span class="location-pin">📍</span>
+            <div>
+              <small>Point de rendez-vous</small>
+              <strong>Salle de l'Âge d'Or</strong>
+            </div>
+          </div>
+          <div class="map-illustration" aria-hidden="true">
+            <span class="road road-one"></span>
+            <span class="road road-two"></span>
+            <span class="road road-three"></span>
+            <span class="map-pin">🎲</span>
+          </div>
+          <div class="location-bottom">
+            <span>19 Route de Montarnaud</span>
+            <strong>34570 Vailhauquès</strong>
           </div>
         </div>
       </div>
     </section>
 
     <section class="section faq-section">
-      <div class="container">
-        <p class="section-kicker">Questions fréquentes</p>
-        <h2>Avant de venir</h2>
+      <div class="container faq-grid">
+        <div>
+          <p class="section-label">Questions fréquentes</p>
+          <h2>Avant de pousser la porte</h2>
+          <p>
+            Les réponses aux questions que se posent le plus souvent les nouveaux visiteurs.
+          </p>
+        </div>
 
         <div class="faq-list">
           <details>
             <summary>Puis-je venir seul ?</summary>
-            <p>Oui. Nous vous présenterons les joueurs et vous aiderons à rejoindre une table.</p>
+            <p>Oui. Nous vous présenterons les membres présents et vous aiderons à rejoindre une table.</p>
           </details>
-
           <details>
-            <summary>Faut-il apporter un jeu ?</summary>
-            <p>
-              Non. Les membres mettent leurs collections à disposition et la ludothèque de
-              l'association s'enrichit progressivement.
-            </p>
+            <summary>Dois-je apporter un jeu ?</summary>
+            <p>Non. Les membres apportent une grande variété de jeux et la ludothèque associative se développe.</p>
           </details>
-
           <details>
-            <summary>Je joue à un autre jeu de figurines. Puis-je venir ?</summary>
-            <p>
-              Oui. Nous sommes ouverts à toute proposition et heureux de découvrir de nouveaux systèmes.
-            </p>
+            <summary>Je ne connais pas les règles. Est-ce un problème ?</summary>
+            <p>Pas du tout. Les règles sont expliquées avant les parties et les débutants sont les bienvenus.</p>
           </details>
-
           <details>
-            <summary>Faut-il être expérimenté ?</summary>
-            <p>Absolument pas. Les règles peuvent être expliquées et les débutants sont les bienvenus.</p>
+            <summary>Puis-je proposer un autre jeu de figurines ?</summary>
+            <p>Oui. Le club est ouvert à de nouveaux systèmes, formats et univers.</p>
           </details>
         </div>
       </div>
@@ -274,28 +392,26 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-grid">
+    <div class="container footer-main">
       <div class="footer-brand">
-        <img src="images/logo.png" alt="">
+        <img src="assets/images/logo.png" alt="">
         <div>
-          <strong>Le Cercle des joueurs paresseux</strong>
+          <strong>Le Cercle des Joueurs Paresseux</strong>
           <span>Section du Foyer Rural de Vailhauquès</span>
         </div>
       </div>
-
-      <div class="footer-info">
+      <div class="footer-address">
         <span>Vendredi · 20 h 30</span>
         <span>Salle de l'Âge d'Or</span>
         <span>19 Route de Montarnaud · Vailhauquès</span>
       </div>
     </div>
-
     <div class="container footer-bottom">
-      <span>© <span id="current-year"></span> Le Cercle des joueurs paresseux</span>
-      <span>Site associatif bénévole</span>
+      <span>© <span id="current-year"></span> Le Cercle des Joueurs Paresseux</span>
+      <a href="#accueil">Retour en haut ↑</a>
     </div>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>
