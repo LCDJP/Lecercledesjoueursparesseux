@@ -1,0 +1,73 @@
+name: Galerie automatique
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "assets/images/galerie/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-gallery:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Recuperer le depot
+        uses: actions/checkout@v4
+
+      - name: Creer la liste des photos
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import re
+
+          folder = Path("assets/images/galerie")
+          output = Path("assets/data/gallery.json")
+          output.parent.mkdir(parents=True, exist_ok=True)
+
+          allowed = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"}
+
+          def natural_key(name):
+              return [
+                  int(part) if part.isdigit() else part.lower()
+                  for part in re.split(r"(\d+)", name)
+              ]
+
+          files = []
+
+          if folder.exists():
+              files = sorted(
+                  [
+                      photo.name
+                      for photo in folder.iterdir()
+                      if photo.is_file()
+                      and photo.suffix.lower() in allowed
+                      and not photo.name.startswith(".")
+                  ],
+                  key=natural_key
+              )
+
+          output.write_text(
+              json.dumps(files, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8"
+          )
+
+          print(f"{len(files)} photo(s) detectee(s)")
+          PY
+
+      - name: Enregistrer la liste
+        run: |
+          if git diff --quiet -- assets/data/gallery.json; then
+            echo "Aucune modification."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/data/gallery.json
+          git commit -m "Mise a jour automatique de la galerie"
+          git push
