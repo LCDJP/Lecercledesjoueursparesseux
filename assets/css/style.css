@@ -1085,3 +1085,89 @@ details p {
     transform: none;
   }
 }
+
+
+/* V3 : carte, galerie plein écran et renforcements mobiles */
+.location-card.map-card { min-height: 560px; }
+.location-map { width: 100%; min-height: 390px; height: 100%; border: 0; background: var(--cream-100); }
+.location-bottom { justify-content: space-between; flex-wrap: wrap; }
+.location-bottom > div { display: grid; }
+.map-directions { padding: .65rem .85rem; border-radius: 10px; color: var(--forest-950); background: var(--gold-500); font-weight: 800; text-decoration: none; }
+
+.gallery-photo { overflow: hidden; padding: 0; background: var(--forest-900); }
+.gallery-button { width: 100%; height: 100%; padding: 0; border: 0; cursor: zoom-in; background: transparent; }
+.gallery-button:focus-visible { outline: 4px solid var(--gold-500); outline-offset: -4px; }
+.gallery-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease, filter .3s ease; }
+.gallery-photo:hover img { transform: scale(1.04); filter: brightness(1.04); }
+.gallery-empty { grid-column: 1 / -1; min-height: 180px; display: grid; place-items: center; padding: 1.5rem; border: 1px dashed var(--line); border-radius: 18px; background: var(--white); text-align: center; }
+
+body.lightbox-open { overflow: hidden; }
+.lightbox[hidden] { display: none; }
+.lightbox { position: fixed; z-index: 200; inset: 0; display: grid; grid-template-columns: minmax(48px, 8vw) minmax(0, 1fr) minmax(48px, 8vw); align-items: center; padding: 1rem; background: rgba(8, 14, 11, .96); }
+.lightbox-figure { grid-column: 2; margin: 0; display: grid; justify-items: center; gap: .7rem; max-height: calc(100vh - 2rem); }
+.lightbox-image { max-width: 100%; max-height: calc(100vh - 5.5rem); object-fit: contain; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+.lightbox-caption { color: rgba(255,255,255,.78); text-align: center; font-size: .92rem; }
+.lightbox-close, .lightbox-nav { position: absolute; border: 0; color: white; background: rgba(255,255,255,.12); cursor: pointer; }
+.lightbox-close { top: 1rem; right: 1rem; width: 46px; height: 46px; border-radius: 50%; font-size: 2rem; line-height: 1; }
+.lightbox-nav { top: 50%; width: 52px; height: 72px; border-radius: 14px; transform: translateY(-50%); font-size: 3rem; line-height: 1; }
+.lightbox-prev { left: 1rem; }
+.lightbox-next { right: 1rem; }
+.lightbox-close:hover, .lightbox-nav:hover, .lightbox-close:focus-visible, .lightbox-nav:focus-visible { background: rgba(240,189,79,.38); outline: 2px solid var(--gold-500); }
+
+@media (max-width: 860px) {
+  .nav-shell { min-height: 68px; }
+  .brand img { width: 46px; height: 46px; }
+  .brand strong { font-size: 1.08rem; }
+  .brand small { font-size: .7rem; }
+  .nav-toggle { display: block; flex: none; }
+  .main-nav { position: fixed; inset: 68px 0 auto 0; display: grid; gap: 0; max-height: 0; overflow: hidden; padding: 0 1rem; background: var(--forest-950); opacity: 0; visibility: hidden; transition: max-height .3s ease, opacity .2s ease, visibility .2s ease; }
+  .main-nav.is-open { max-height: calc(100vh - 68px); padding-block: .7rem 1.2rem; opacity: 1; visibility: visible; overflow-y: auto; }
+  .main-nav a { display: block; padding: 1rem .4rem; border-bottom: 1px solid rgba(255,255,255,.09); }
+  .main-nav .nav-cta { margin-top: .7rem; padding: .85rem 1rem; text-align: center; }
+  .hero { min-height: auto; }
+  .hero-grid, .split-layout, .first-visit-grid, .visit-grid, .faq-grid, .section-heading { grid-template-columns: 1fr; gap: 2.2rem; }
+  .hero-grid { padding-block: 4rem; }
+  .hero-visual { min-height: 390px; }
+  .floating-card { font-size: .85rem; }
+  .universe-grid { grid-template-columns: 1fr; }
+  .universe-card-featured { transform: none; }
+  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 160px; }
+  .location-card.map-card { min-height: 500px; }
+  .location-map { min-height: 340px; }
+}
+
+@media (max-width: 560px) {
+  .container { width: min(calc(100% - 1.25rem), var(--container)); }
+  .section { padding: 4.25rem 0; }
+  .hero h1 { font-size: clamp(2.7rem, 15vw, 4rem); }
+  .hero-intro { font-size: 1.05rem; }
+  .hero-actions .button, .social-row .button { width: 100%; }
+  .hero-facts { grid-template-columns: 1fr; }
+  .hero-visual { min-height: 320px; }
+  .logo-stage { width: 82%; border-radius: 24px; }
+  .floating-card-one { top: 0; right: 0; }
+  .floating-card-two { bottom: 12%; left: 0; }
+  .floating-card-three { bottom: 0; right: 0; }
+  .announcement-inner, .announcement-copy { align-items: flex-start; }
+  .announcement-inner { flex-direction: column; padding-block: 1.25rem; gap: .7rem; }
+  .section h2 { font-size: clamp(2.1rem, 12vw, 3.2rem); }
+  .manifesto, .universe-card { padding: 1.5rem; }
+  .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+  .tile-large, .tile-wide { grid-column: auto; grid-row: auto; }
+  .location-card.map-card { min-height: 460px; }
+  .location-map { min-height: 300px; }
+  .location-bottom { align-items: stretch; }
+  .map-directions { width: 100%; text-align: center; }
+  .lightbox { grid-template-columns: 1fr; padding: .5rem; }
+  .lightbox-figure { grid-column: 1; }
+  .lightbox-image { max-height: calc(100vh - 7rem); }
+  .lightbox-nav { top: auto; bottom: 1rem; width: 54px; height: 48px; font-size: 2.3rem; }
+  .lightbox-prev { left: calc(50% - 64px); }
+  .lightbox-next { right: calc(50% - 64px); }
+  .lightbox-caption { padding-bottom: 3.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

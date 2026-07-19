@@ -7,17 +7,75 @@
   <title>Le Cercle des Joueurs Paresseux | Jeux à Vailhauquès</title>
   <meta name="description" content="Club de jeux de société, jeux de figurines et jeux de cartes à Vailhauquès, près de Montpellier. Rendez-vous chaque vendredi à 20 h 30.">
   <meta name="theme-color" content="#263f32">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Le Cercle des Joueurs Paresseux">
+  <link rel="canonical" href="https://lcdjp.github.io/Lecercledesjoueursparesseux/">
 
   <meta property="og:title" content="Le Cercle des Joueurs Paresseux">
   <meta property="og:description" content="Prenez votre temps. Lancez les dés. Tous les vendredis à 20 h 30 à Vailhauquès.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/images/logo.png">
+  <meta property="og:url" content="https://lcdjp.github.io/Lecercledesjoueursparesseux/">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Le Cercle des Joueurs Paresseux">
+  <meta property="og:image" content="https://lcdjp.github.io/Lecercledesjoueursparesseux/assets/images/logo.png">
+  <meta property="og:image:alt" content="Logo du Cercle des Joueurs Paresseux">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Le Cercle des Joueurs Paresseux | Jeux à Vailhauquès">
+  <meta name="twitter:description" content="Jeux de société, figurines et cartes chaque vendredi à 20 h 30 à Vailhauquès.">
+  <meta name="twitter:image" content="https://lcdjp.github.io/Lecercledesjoueursparesseux/assets/images/logo.png">
 
   <link rel="icon" href="assets/images/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Le Cercle des Joueurs Paresseux",
+    "url": "https://lcdjp.github.io/Lecercledesjoueursparesseux/",
+    "logo": "https://lcdjp.github.io/Lecercledesjoueursparesseux/assets/images/logo.png",
+    "description": "Club de jeux de société, jeux de figurines et jeux de cartes à Vailhauquès, près de Montpellier.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "19 Route de Montarnaud",
+      "postalCode": "34570",
+      "addressLocality": "Vailhauquès",
+      "addressCountry": "FR"
+    },
+    "sameAs": [
+      "https://www.facebook.com/people/Le-Cercle-des-Joueurs-Paresseux/61553506266229/",
+      "https://www.instagram.com/lecercledesjoueursparesseux/"
+    ],
+    "event": {
+      "@type": "Event",
+      "name": "Soirée jeux du vendredi",
+      "eventSchedule": {
+        "@type": "Schedule",
+        "repeatFrequency": "P1W",
+        "byDay": "https://schema.org/Friday",
+        "startTime": "20:30"
+      },
+      "location": {
+        "@type": "Place",
+        "name": "Salle de l'Âge d'Or",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "19 Route de Montarnaud",
+          "postalCode": "34570",
+          "addressLocality": "Vailhauquès",
+          "addressCountry": "FR"
+        }
+      },
+      "organizer": {"@type": "Organization", "name": "Le Cercle des Joueurs Paresseux"},
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled"
+    }
+  }
+  </script>
 </head>
 
 <body>
@@ -308,7 +366,7 @@
           </div>
         </div>
 
-        <div class="location-card">
+        <div class="location-card map-card">
           <div class="location-top">
             <span class="location-pin">📍</span>
             <div>
@@ -316,15 +374,20 @@
               <strong>Salle de l'Âge d'Or</strong>
             </div>
           </div>
-          <div class="map-illustration" aria-hidden="true">
-            <span class="road road-one"></span>
-            <span class="road road-two"></span>
-            <span class="road road-three"></span>
-            <span class="map-pin">🎲</span>
-          </div>
+          <iframe
+            class="location-map"
+            title="Carte pour trouver la Salle de l'Âge d'Or à Vailhauquès"
+            src="https://www.google.com/maps?q=19%20Route%20de%20Montarnaud%2C%2034570%20Vailhauqu%C3%A8s&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
           <div class="location-bottom">
-            <span>19 Route de Montarnaud</span>
-            <strong>34570 Vailhauquès</strong>
+            <div>
+              <span>19 Route de Montarnaud</span>
+              <strong>34570 Vailhauquès</strong>
+            </div>
+            <a class="map-directions" href="https://www.google.com/maps/dir/?api=1&destination=19%20Route%20de%20Montarnaud%2C%2034570%20Vailhauqu%C3%A8s" target="_blank" rel="noopener">Obtenir l'itinéraire</a>
           </div>
         </div>
       </div>
