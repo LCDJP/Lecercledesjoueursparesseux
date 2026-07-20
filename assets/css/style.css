@@ -1254,3 +1254,29 @@ body.lightbox-open { overflow: hidden; }
 .legal-alert strong{display:block;margin-bottom:.35rem}
 .footer-bottom a{margin-left:1rem}
 @media(max-width:760px){.foyer-rural-card{grid-template-columns:1fr;text-align:center}.footer-bottom a{display:block;margin:.5rem 0 0}}
+
+
+/* V8.1 — correction du ratio du logo */
+.site-logo-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  aspect-ratio: 200 / 200;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+.site-brand .site-logo-image,
+.site-logo .site-logo-image,
+.header-brand .site-logo-image {
+  width: clamp(56px, 8vw, 96px);
+  height: auto;
+}
+@media (max-width: 640px) {
+  .site-brand .site-logo-image,
+  .site-logo .site-logo-image,
+  .header-brand .site-logo-image {
+    width: 64px;
+    height: auto;
+  }
+}
