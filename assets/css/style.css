@@ -1243,3 +1243,14 @@ body.lightbox-open { overflow: hidden; }
   .travel-grid{grid-template-columns:1fr}
   .parking-callout{flex-direction:column}
 }
+
+/* V8 — Foyer Rural, mentions légales et WebP */
+.foyer-rural-card{display:grid;grid-template-columns:minmax(180px,300px) minmax(0,1fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center;padding:clamp(1.4rem,4vw,3rem);border-radius:24px;background:#fff;box-shadow:0 18px 46px rgba(38,63,50,.08)}
+.foyer-rural-logo{display:flex;justify-content:center}
+.foyer-rural-logo img{display:block;width:min(100%,260px);height:auto}
+.foyer-rural-content p,.legal-content p{line-height:1.75}
+.legal-content h2{margin-bottom:.8rem}
+.legal-alert{padding:1.25rem 1.4rem;border:1px solid rgba(240,189,79,.52);border-radius:18px;background:rgba(240,189,79,.15)}
+.legal-alert strong{display:block;margin-bottom:.35rem}
+.footer-bottom a{margin-left:1rem}
+@media(max-width:760px){.foyer-rural-card{grid-template-columns:1fr;text-align:center}.footer-bottom a{display:block;margin:.5rem 0 0}}
