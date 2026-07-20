@@ -27,4 +27,14 @@
   <url>
     <loc>https://lcdjp.github.io/Lecercledesjoueursparesseux/mentions-legales.html</loc>
   </url>
+  <url>
+    <loc>https://lcdjp.github.io/Lecercledesjoueursparesseux/merci.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://lcdjp.github.io/Lecercledesjoueursparesseux/avis.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>
