@@ -1188,3 +1188,58 @@ body.lightbox-open { overflow: hidden; }
 .local-footer-links a:hover{opacity:1;text-decoration:underline}
 .content-narrow a:not(.button){font-weight:800}
 @media (max-width:760px){.local-city-grid,.local-topic-grid{grid-template-columns:1fr}.page-nav{max-height:calc(100vh - 90px);overflow:auto}}
+
+
+/* V7 — trajets et stationnement */
+.travel-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1rem;
+  margin-top:1.5rem;
+}
+.travel-card{
+  padding:1.35rem;
+  border:1px solid rgba(38,63,50,.15);
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 10px 28px rgba(38,63,50,.06);
+}
+.travel-card h3{margin:0 0 .35rem;font-size:1.2rem}
+.travel-card p{margin:.35rem 0}
+.travel-duration{font-weight:800;color:var(--forest-900)}
+.parking-callout{
+  display:flex;
+  align-items:flex-start;
+  gap:1rem;
+  margin-top:1.5rem;
+  padding:1.25rem 1.4rem;
+  border-radius:18px;
+  background:rgba(240,189,79,.18);
+  border:1px solid rgba(240,189,79,.48);
+}
+.parking-icon{font-size:1.7rem;line-height:1}
+.parking-callout strong{display:block;font-size:1.12rem}
+.parking-callout p{margin:.35rem 0 0;line-height:1.65}
+.route-facts{
+  display:grid;
+  gap:.8rem;
+  margin:1.4rem 0;
+}
+.route-fact{
+  display:flex;
+  gap:.85rem;
+  align-items:flex-start;
+  padding:1rem 1.1rem;
+  border-radius:15px;
+  background:rgba(38,63,50,.07);
+}
+.route-fact>span{font-size:1.4rem}
+.route-fact strong{display:block}
+.route-fact p{margin:.2rem 0 0}
+.local-route-section .button{margin-top:.35rem}
+.access-summary .button{margin-top:1rem}
+@media(max-width:980px){.travel-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){
+  .travel-grid{grid-template-columns:1fr}
+  .parking-callout{flex-direction:column}
+}
