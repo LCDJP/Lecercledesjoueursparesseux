@@ -1,9 +1,69 @@
-/* V11.1 — Liens sociaux visibles dans tous les pieds de page */
+/* V11.2 — Boutons sociaux à contraste élevé */
 .site-footer .footer-social-links {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.85rem;
   align-items: center;
+}
+
+.site-footer .social-button {
+  min-height: 48px;
+  padding: 0.8rem 1.15rem;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  border: 2px solid rgba(255,255,255,.28);
+  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+}
+
+.site-footer .social-button,
+.site-footer .social-button:visited {
+  color: #fff;
+}
+
+.site-footer .social-button:hover,
+.site-footer .social-button:focus-visible {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 9px 24px rgba(0,0,0,.24);
+}
+
+.site-footer .social-button svg {
+  flex: 0 0 auto;
+}
+
+.site-footer .social-facebook {
+  background: #1877f2;
+}
+
+.site-footer .social-instagram {
+  background: linear-gradient(135deg, #833ab4, #e1306c 55%, #f77737);
+}
+
+.site-footer .social-google {
+  background: #ffffff;
+  color: #202124;
+  border-color: #dadce0;
+}
+
+.site-footer .social-google:visited {
+  color: #202124;
+}
+
+@media (max-width: 640px) {
+  .site-footer .footer-social-links {
+    align-items: stretch;
+  }
+
+  .site-footer .social-button {
+    width: 100%;
+  }
 }
