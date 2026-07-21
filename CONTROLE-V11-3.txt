@@ -1,0 +1,8 @@
+{
+  "html_count": 11,
+  "missing_social": [],
+  "missing_css_reference": [],
+  "missing_local_assets": [],
+  "wargame_content_ok": true,
+  "boardgame_content_ok": true
+}
