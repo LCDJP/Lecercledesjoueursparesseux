@@ -1,0 +1,19 @@
+FICHIERS V13 À REMPLACER
+
+Remplacez dans GitHub :
+
+1. scripts/facebook-sync.mjs
+2. scripts/build-actualites.mjs
+3. actualites.html
+
+Ensuite, relancez le workflow :
+Actions > Synchroniser les actualités Facebook > Run workflow
+
+Cette version :
+- déduplique les blocs Facebook représentant la même publication ;
+- nettoie les doublons déjà enregistrés ;
+- supprime les anciennes pages HTML générées avant reconstruction ;
+- utilise le titre général « Dernières actualités du Cercle des Joueurs Paresseux » ;
+- n'impose plus le mot « soirée » ;
+- reprend la première phrase de la publication comme titre uniquement lorsqu'elle est suffisamment claire ;
+- utilise sinon « Actualité du Cercle des Joueurs Paresseux – date ».
