@@ -1,0 +1,52 @@
+name: Synchroniser les actualités Facebook
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 5 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: facebook-actualites
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Installer les dépendances
+        run: npm install
+
+      - name: Installer Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Lire Facebook et générer les actualités SEO
+        env:
+          FACEBOOK_PUBLIC_URL: "https://www.facebook.com/people/Le-Cercle-des-Joueurs-Paresseux/61553506266229/"
+          FACEBOOK_MAX_POSTS: "12"
+        run: npm run sync
+
+      - name: Enregistrer les nouveautés
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add actualites.html actualites assets/actualites data/facebook-posts.json sitemap.xml
+          if git diff --cached --quiet; then
+            echo "Aucune nouveauté à enregistrer."
+          else
+            git commit -m "Actualisation automatique depuis Facebook"
+            git push
+          fi
