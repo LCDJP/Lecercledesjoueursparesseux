@@ -1,0 +1,11 @@
+{
+  "version": "V12",
+  "base_complete": true,
+  "actualites_page": true,
+  "workflow": true,
+  "scraper": true,
+  "seo_generator": true,
+  "package_json": true,
+  "html_pages": 12,
+  "facebook_requires_credentials": false
+}
