@@ -1,0 +1,20 @@
+{
+  "jeux-de-societe.html": {
+    "doctype": true,
+    "footer_preserved": true,
+    "actualites_nav": true,
+    "open_to_proposals": true
+  },
+  "jeux-de-cartes.html": {
+    "doctype": true,
+    "footer_preserved": true,
+    "actualites_nav": true,
+    "open_to_proposals": true
+  },
+  "wargame.html": {
+    "doctype": true,
+    "footer_preserved": true,
+    "actualites_nav": true,
+    "open_to_proposals": true
+  }
+}
