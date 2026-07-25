@@ -1,27 +1,32 @@
-FICHIERS V13 À REMPLACER
+MISE À JOUR V16.7 — ACTUALITÉS PLUS DÉVELOPPÉES
 
-Remplacez dans GitHub :
+FICHIERS À IMPORTER À LA RACINE DU DÉPÔT GITHUB :
 
-1. scripts/facebook-sync.mjs
-2. scripts/build-actualites.mjs
-3. actualites.html
+1. scripts/build-actualites.mjs
+2. actualites.html
+3. le dossier actualites/ et ses fichiers HTML
+4. CONTROLE_V16_7.json
 
-Ensuite, relancez le workflow :
-Actions > Synchroniser les actualités Facebook > Run workflow
+Le fichier LISEZ-MOI.txt peut également remplacer l'ancien.
 
-Cette version :
-- déduplique les blocs Facebook représentant la même publication ;
-- nettoie les doublons déjà enregistrés ;
-- supprime les anciennes pages HTML générées avant reconstruction ;
-- utilise le titre général « Dernières actualités du Cercle des Joueurs Paresseux » ;
-- n'impose plus le mot « soirée » ;
-- reprend la première phrase de la publication comme titre uniquement lorsqu'elle est suffisamment claire ;
-- utilise sinon « Actualité du Cercle des Joueurs Paresseux – date ».
+INSTALLATION
+- Importez le contenu du ZIP à la racine du dépôt en conservant les dossiers.
+- Validez avec « Commit changes ».
+- Ouvrez Actions > Synchroniser les actualités Facebook > Run workflow.
 
-MISE À JOUR V16.6 — ACTUALITÉS RÉSUMÉES
-- intégration des corrections V16.4 et V16.5 déjà présentes dans le dépôt ;
-- remplacement de la reprise intégrale des publications Facebook par des résumés courts ;
-- conservation, pour chaque actualité, d'un bouton vers la publication Facebook d'origine ;
-- génération automatique des résumés lors des prochaines synchronisations Facebook ;
-- conservation de la photo principale lorsqu'elle est disponible ;
-- amélioration des titres et des descriptions des actualités.
+CHANGEMENTS V16.7
+- résumé automatique plus développé et réorganisé ;
+- carte principale limitée à 120 mots maximum ;
+- article détaillé limité à 300 mots maximum ;
+- sélection des phrases informatives plutôt qu'une simple reprise des premières lignes ;
+- aucune information inventée lorsque la publication source est courte ou tronquée ;
+- indication discrète lorsque Facebook ne fournit pas assez de texte ;
+- catégories détectées automatiquement : jeux de société, jeux de cartes, figurines, vie du club ;
+- images des cartes limitées à 180–220 px de hauteur sur ordinateur ;
+- images limitées à 190 px sur mobile ;
+- recadrage automatique avec object-fit: cover ;
+- bouton « Lire l'article » sur la page principale ;
+- bouton « Voir la publication originale sur Facebook » en fin d'article.
+
+IMPORTANT
+La longueur réelle dépend du texte récupéré sur Facebook. Si Facebook transmet une publication tronquée (« V… »), le générateur ne complète pas artificiellement le contenu. La prochaine synchronisation reconstruira automatiquement actualites.html et toutes les pages du dossier actualites/.
