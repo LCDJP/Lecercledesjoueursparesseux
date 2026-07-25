@@ -1,0 +1,16 @@
+{
+  "version": "V16.6",
+  "actualites_generees": 2,
+  "liens_facebook_dans_articles": 2,
+  "resumes_dans_articles": 2,
+  "catan_sans_e": true,
+  "catane_occurrences_html": 0,
+  "starcraft_image_principale_occurrences": 1,
+  "fichiers_principaux_modifies": [
+    "scripts/build-actualites.mjs",
+    "actualites.html",
+    "actualites/*.html",
+    "sitemap.xml",
+    "LISEZ-MOI.txt"
+  ]
+}

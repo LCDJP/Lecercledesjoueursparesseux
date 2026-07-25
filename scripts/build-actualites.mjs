@@ -36,10 +36,45 @@ function slugify(value) {
 
 function cleanFacebookText(value = "") {
   return normalizeSpace(value)
+    .replace(/^Le Cercle des Joueurs Paresseux\s*/i, "")
+    .replace(/^\d+\s*(min|h|j|sem\.?|mois)\s*[·•-]\s*/i, "")
     .replace(/\b(J’aime|Commenter|Partager|Like|Comment|Share)\b/gi, " ")
+    .replace(/\bToutes les réactions\s*:?\s*\d*(?:\s+\d+)*\b/gi, " ")
+    .replace(/\b\d+\s+(?:de\s+)?commentaires?\b/gi, " ")
     .replace(/\b\d+\s+(commentaire|commentaires|partage|partages|réaction|réactions)\b/gi, " ")
+    .replace(/\bVoir plus\b/gi, " ")
+    .replace(/\s+[Vv]…(?:\s+En)?\s*$/u, "…")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function splitSentences(value = "") {
+  return String(value)
+    .split(/(?<=[.!?…])\s+/u)
+    .map(sentence => sentence.trim())
+    .filter(sentence => sentence.length >= 12);
+}
+
+function summarizePost(post) {
+  const cleaned = cleanFacebookText(post.text);
+  if (!cleaned) {
+    return "Une nouvelle actualité du Cercle des Joueurs Paresseux est disponible sur Facebook.";
+  }
+
+  const sentences = splitSentences(cleaned);
+  let summary = sentences.slice(0, 3).join(" ") || cleaned;
+
+  if (summary.length > 430) {
+    const shortened = summary.slice(0, 427);
+    const lastSpace = shortened.lastIndexOf(" ");
+    summary = `${shortened.slice(0, lastSpace > 300 ? lastSpace : 427).trim()}…`;
+  }
+
+  if (/a changé sa photo de couverture/i.test(cleaned)) {
+    return "Le Cercle des Joueurs Paresseux a mis à jour sa photo de couverture afin de mieux présenter l’identité et l’univers du club.";
+  }
+
+  return summary;
 }
 
 function detectTopics(text) {
@@ -70,7 +105,15 @@ function detectTopics(text) {
 }
 
 function makeArticleTitle(post) {
-  const text = cleanFacebookText(post.text);
+  const text = summarizePost(post);
+
+  if (/photo de couverture/i.test(text)) {
+    return "Une nouvelle image pour présenter le Cercle";
+  }
+
+  if (/a désormais son site Internet/i.test(text)) {
+    return "Le Cercle a désormais son site Internet";
+  }
   const date = new Date(post.date);
   const dateFr = Number.isNaN(date.getTime())
     ? ""
@@ -93,30 +136,16 @@ function makeArticleTitle(post) {
 }
 
 function makeDescription(post) {
-  const text = cleanFacebookText(post.text);
-  const topics = detectTopics(text)
-    .map(topic => topic.label)
-    .slice(0, 3)
-    .join(", ");
-
-  const intro =
-    `Dernières actualités du Cercle des Joueurs Paresseux à Vailhauquès, près de Montarnaud, Juvignac, Grabels, Gignac et Montpellier.`;
-
-  const topicText = topics ? ` Au programme : ${topics}.` : "";
-  const description = `${intro}${topicText} ${text}`.trim();
-
+  const summary = summarizePost(post);
+  const description = `${summary} Retrouvez les détails dans la publication Facebook d’origine.`;
   return description.slice(0, 158);
 }
 
-function paragraphs(text) {
-  const cleaned = String(text || "").trim();
-
-  return cleaned
-    .split(/\n{2,}|\r?\n/)
-    .map(cleanFacebookText)
-    .filter(Boolean)
-    .map(paragraph => `<p>${escapeHtml(paragraph)}</p>`)
-    .join("\n");
+function summaryHtml(post) {
+  return `<div class="news-summary">
+<p class="eyebrow">En bref</p>
+<p>${escapeHtml(summarizePost(post))}</p>
+</div>`;
 }
 
 function articleHtml(post, slug, title, description) {
@@ -272,6 +301,14 @@ function articleHtml(post, slug, title, description) {
   font-size:.92rem;
 }
 .news-grid {margin-top:1.5rem}
+.news-summary {
+  margin:0 0 1.75rem;
+  padding:1.25rem 1.4rem;
+  border-left:5px solid #d7a82f;
+  border-radius:0 16px 16px 0;
+  background:#f7f3e8;
+}
+.news-summary p:last-child {margin-bottom:0;font-size:1.08rem;line-height:1.75}
 @media (max-width:780px) {
   .section-illustration {grid-template-columns:1fr}
   .illustration-panel {min-height:210px}
@@ -313,7 +350,7 @@ function articleHtml(post, slug, title, description) {
 <section class="section">
 <article class="container prose news-article">
 ${img}
-${paragraphs(post.text)}
+${summaryHtml(post)}
 <div class="news-topic-links">${links}</div>
 ${sourceLink}
 <p><a href="../actualites.html">← Toutes les actualités du Cercle</a></p>
@@ -350,7 +387,7 @@ function card(post, slug, title, description) {
 <div class="news-card-body">
 <p class="eyebrow">${escapeHtml(dateFr)}</p>
 <h2><a href="actualites/${slug}.html">${escapeHtml(title)}</a></h2>
-<p>${escapeHtml(description)}</p>
+<p>${escapeHtml(summarizePost(post))}</p>
 <a class="button button-primary" href="actualites/${slug}.html">Lire l'actualité</a>
 </div>
 </article>`;
@@ -457,7 +494,7 @@ const indexHtml = `<!DOCTYPE html>
 <link rel="canonical" href="${BASE_URL}actualites.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Dernières actualités du Cercle des Joueurs Paresseux">
-<meta property="og:description" content="Retrouvez les dernières publications et nouvelles du Cercle des Joueurs Paresseux.">
+<meta property="og:description" content="Retrouvez des résumés des dernières nouvelles du Cercle, avec un lien vers chaque publication Facebook d’origine.">
 <meta property="og:url" content="${BASE_URL}actualites.html">
 <meta property="og:image" content="${BASE_URL}assets/images/logo-cercle-joueurs-paresseux.webp">
 <link rel="icon" href="assets/images/logo-cercle-joueurs-paresseux.webp">
@@ -532,6 +569,14 @@ const indexHtml = `<!DOCTYPE html>
   font-size:.92rem;
 }
 .news-grid {margin-top:1.5rem}
+.news-summary {
+  margin:0 0 1.75rem;
+  padding:1.25rem 1.4rem;
+  border-left:5px solid #d7a82f;
+  border-radius:0 16px 16px 0;
+  background:#f7f3e8;
+}
+.news-summary p:last-child {margin-bottom:0;font-size:1.08rem;line-height:1.75}
 @media (max-width:780px) {
   .section-illustration {grid-template-columns:1fr}
   .illustration-panel {min-height:210px}
@@ -569,7 +614,7 @@ const indexHtml = `<!DOCTYPE html>
 <div class="container">
 <p class="eyebrow">La vie du club</p>
 <h1>Dernières actualités du Cercle des Joueurs Paresseux</h1>
-<p class="hero-intro">Retrouvez ici les dernières publications, annonces, événements, photos et nouvelles du club à Vailhauquès, près de Montarnaud, Juvignac, Grabels, Gignac et Montpellier.</p>
+<p class="hero-intro">Retrouvez ici un résumé clair des dernières nouvelles du club. Chaque actualité conserve un lien direct vers la publication Facebook d’origine.</p>
 </div>
 </section>
 

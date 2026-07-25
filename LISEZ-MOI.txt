@@ -17,3 +17,11 @@ Cette version :
 - n'impose plus le mot « soirée » ;
 - reprend la première phrase de la publication comme titre uniquement lorsqu'elle est suffisamment claire ;
 - utilise sinon « Actualité du Cercle des Joueurs Paresseux – date ».
+
+MISE À JOUR V16.6 — ACTUALITÉS RÉSUMÉES
+- intégration des corrections V16.4 et V16.5 déjà présentes dans le dépôt ;
+- remplacement de la reprise intégrale des publications Facebook par des résumés courts ;
+- conservation, pour chaque actualité, d'un bouton vers la publication Facebook d'origine ;
+- génération automatique des résumés lors des prochaines synchronisations Facebook ;
+- conservation de la photo principale lorsqu'elle est disponible ;
+- amélioration des titres et des descriptions des actualités.
