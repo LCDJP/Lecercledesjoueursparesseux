@@ -1,0 +1,18 @@
+{
+  "changed_files": [
+    "LISEZ-MOI.txt",
+    "jeux-de-societe.html"
+  ],
+  "checks": {
+    "contains_Catan": true,
+    "contains_Catane": false,
+    "catan_heading": true,
+    "catan_alt": true,
+    "v16_4_changes_preserved": true
+  },
+  "global_occurrences": {
+    "Catane": 0,
+    "catane": 0,
+    "Catan": 14
+  }
+}

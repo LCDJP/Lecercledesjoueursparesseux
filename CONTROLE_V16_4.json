@@ -1,0 +1,17 @@
+{
+  "wargame": {
+    "starcraft_table_occurrences": 1,
+    "starcraft_close_occurrences": 1,
+    "starcraft_terran_occurrences": 1,
+    "hero_preserved": true,
+    "beta_section_preserved": true
+  },
+  "jeux_de_societe": {
+    "catan_section": true,
+    "abyss_section": true,
+    "catan_main_photo": 1,
+    "catan_second_photo": 1,
+    "abyss_main_photo": 1,
+    "abyss_second_photo": 1
+  }
+}

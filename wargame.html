@@ -260,6 +260,22 @@
 }
 </style>
 
+
+<style>
+/* V16.4 — galeries à deux images */
+.club-gallery-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 780px) {
+  .club-gallery-two {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -625,7 +641,8 @@
       </figure>
     </div>
 
-    <div class="club-gallery">
+    
+    <div class="club-gallery club-gallery-two">
       <figure>
         <img src="assets/images/club/starcraft-beta-close.webp"
              alt="Figurine extraterrestre lors de la bêta StarCraft Tabletop au club"
@@ -638,13 +655,8 @@
              loading="lazy">
         <figcaption>Une force futuriste déployée pendant les essais du jeu.</figcaption>
       </figure>
-      <figure>
-        <img src="assets/images/club/starcraft-beta-table.webp"
-             alt="Champ de bataille StarCraft Tabletop Miniatures Game lors de la bêta"
-             loading="lazy">
-        <figcaption>Décors, unités et objectifs réunis sur une table de la bêta.</figcaption>
-      </figure>
     </div>
+
   </div>
 </section>
 
