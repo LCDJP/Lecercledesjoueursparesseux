@@ -202,6 +202,82 @@ function articleHtml(post, slug, title, description) {
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/images/logo-cercle-joueurs-paresseux.webp">
 <link rel="stylesheet" href="../assets/css/style.css">
+
+<style>
+/* V14 — entêtes plus visibles et illustrations intégrées */
+.subpage-hero,
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(246,190,66,.28), transparent 28%),
+    linear-gradient(135deg,#213c31 0%,#2f5746 58%,#3f6b56 100%) !important;
+  color:#fff !important;
+  padding:clamp(3.5rem,8vw,6.5rem) 0 !important;
+}
+.subpage-hero::after,
+.page-hero::after {
+  content:"";
+  position:absolute;
+  right:-90px;
+  bottom:-210px;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  background:rgba(255,255,255,.06);
+  pointer-events:none;
+}
+.subpage-hero .container,
+.page-hero .container {position:relative;z-index:1}
+.subpage-hero .eyebrow,
+.page-hero .eyebrow {
+  color:#ffd56a !important;
+  font-weight:800;
+  letter-spacing:.14em;
+}
+.subpage-hero h1,
+.page-hero h1 {
+  color:#fff !important;
+  max-width:900px;
+  text-shadow:0 3px 16px rgba(0,0,0,.24);
+}
+.subpage-hero .hero-intro,
+.page-hero .hero-intro {
+  color:rgba(255,255,255,.95) !important;
+  max-width:780px;
+  font-size:clamp(1.05rem,2vw,1.3rem);
+  line-height:1.65;
+}
+.section-illustration {
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);
+  gap:clamp(1.5rem,4vw,3rem);
+  align-items:center;
+  margin-bottom:2rem;
+}
+.illustration-panel {
+  min-height:260px;
+  padding:1rem;
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(37,70,55,.98),rgba(56,99,77,.96));
+  box-shadow:0 18px 45px rgba(30,55,44,.18);
+  display:grid;
+  place-items:center;
+}
+.illustration-panel svg {width:min(100%,420px);height:auto;display:block}
+.illustration-caption {
+  margin:.85rem 0 0;
+  color:rgba(255,255,255,.88);
+  text-align:center;
+  font-size:.92rem;
+}
+.news-grid {margin-top:1.5rem}
+@media (max-width:780px) {
+  .section-illustration {grid-template-columns:1fr}
+  .illustration-panel {min-height:210px}
+}
+</style>
+
 <script type="application/ld+json">${JSON.stringify(schema)}</script>
 </head>
 <body>
@@ -386,6 +462,82 @@ const indexHtml = `<!DOCTYPE html>
 <meta property="og:image" content="${BASE_URL}assets/images/logo-cercle-joueurs-paresseux.webp">
 <link rel="icon" href="assets/images/logo-cercle-joueurs-paresseux.webp">
 <link rel="stylesheet" href="assets/css/style.css">
+
+<style>
+/* V14 — entêtes plus visibles et illustrations intégrées */
+.subpage-hero,
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(246,190,66,.28), transparent 28%),
+    linear-gradient(135deg,#213c31 0%,#2f5746 58%,#3f6b56 100%) !important;
+  color:#fff !important;
+  padding:clamp(3.5rem,8vw,6.5rem) 0 !important;
+}
+.subpage-hero::after,
+.page-hero::after {
+  content:"";
+  position:absolute;
+  right:-90px;
+  bottom:-210px;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  background:rgba(255,255,255,.06);
+  pointer-events:none;
+}
+.subpage-hero .container,
+.page-hero .container {position:relative;z-index:1}
+.subpage-hero .eyebrow,
+.page-hero .eyebrow {
+  color:#ffd56a !important;
+  font-weight:800;
+  letter-spacing:.14em;
+}
+.subpage-hero h1,
+.page-hero h1 {
+  color:#fff !important;
+  max-width:900px;
+  text-shadow:0 3px 16px rgba(0,0,0,.24);
+}
+.subpage-hero .hero-intro,
+.page-hero .hero-intro {
+  color:rgba(255,255,255,.95) !important;
+  max-width:780px;
+  font-size:clamp(1.05rem,2vw,1.3rem);
+  line-height:1.65;
+}
+.section-illustration {
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);
+  gap:clamp(1.5rem,4vw,3rem);
+  align-items:center;
+  margin-bottom:2rem;
+}
+.illustration-panel {
+  min-height:260px;
+  padding:1rem;
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(37,70,55,.98),rgba(56,99,77,.96));
+  box-shadow:0 18px 45px rgba(30,55,44,.18);
+  display:grid;
+  place-items:center;
+}
+.illustration-panel svg {width:min(100%,420px);height:auto;display:block}
+.illustration-caption {
+  margin:.85rem 0 0;
+  color:rgba(255,255,255,.88);
+  text-align:center;
+  font-size:.92rem;
+}
+.news-grid {margin-top:1.5rem}
+@media (max-width:780px) {
+  .section-illustration {grid-template-columns:1fr}
+  .illustration-panel {min-height:210px}
+}
+</style>
+
 <script type="application/ld+json">${JSON.stringify(indexSchema)}</script>
 </head>
 <body>

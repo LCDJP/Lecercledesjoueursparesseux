@@ -53,6 +53,82 @@
     ]
   }
   </script>
+
+<style>
+/* V14 — entêtes plus visibles et illustrations intégrées */
+.subpage-hero,
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(246,190,66,.28), transparent 28%),
+    linear-gradient(135deg,#213c31 0%,#2f5746 58%,#3f6b56 100%) !important;
+  color:#fff !important;
+  padding:clamp(3.5rem,8vw,6.5rem) 0 !important;
+}
+.subpage-hero::after,
+.page-hero::after {
+  content:"";
+  position:absolute;
+  right:-90px;
+  bottom:-210px;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  background:rgba(255,255,255,.06);
+  pointer-events:none;
+}
+.subpage-hero .container,
+.page-hero .container {position:relative;z-index:1}
+.subpage-hero .eyebrow,
+.page-hero .eyebrow {
+  color:#ffd56a !important;
+  font-weight:800;
+  letter-spacing:.14em;
+}
+.subpage-hero h1,
+.page-hero h1 {
+  color:#fff !important;
+  max-width:900px;
+  text-shadow:0 3px 16px rgba(0,0,0,.24);
+}
+.subpage-hero .hero-intro,
+.page-hero .hero-intro {
+  color:rgba(255,255,255,.95) !important;
+  max-width:780px;
+  font-size:clamp(1.05rem,2vw,1.3rem);
+  line-height:1.65;
+}
+.section-illustration {
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);
+  gap:clamp(1.5rem,4vw,3rem);
+  align-items:center;
+  margin-bottom:2rem;
+}
+.illustration-panel {
+  min-height:260px;
+  padding:1rem;
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(37,70,55,.98),rgba(56,99,77,.96));
+  box-shadow:0 18px 45px rgba(30,55,44,.18);
+  display:grid;
+  place-items:center;
+}
+.illustration-panel svg {width:min(100%,420px);height:auto;display:block}
+.illustration-caption {
+  margin:.85rem 0 0;
+  color:rgba(255,255,255,.88);
+  text-align:center;
+  font-size:.92rem;
+}
+.news-grid {margin-top:1.5rem}
+@media (max-width:780px) {
+  .section-illustration {grid-template-columns:1fr}
+  .illustration-panel {min-height:210px}
+}
+</style>
+
 </head>
 <body>
 
@@ -194,7 +270,8 @@
 
     <section class="section">
       <div class="container">
-        <div class="section-heading">
+        <div class="section-illustration"><div>
+<div class="section-heading">
           <div>
             <p class="section-label">Nos pratiques actuelles</p>
             <h2>Warhammer 40K, Age of Sigmar, Spearhead et StarCraft</h2>
@@ -206,7 +283,28 @@
           </p>
         </div>
 
-        <div class="review-card-grid">
+        </div>
+
+<div class="illustration-panel">
+<svg viewBox="0 0 640 420" role="img" aria-label="Champ de bataille miniature">
+<path d="M55 325L180 170l95 85 115-145 195 215z" fill="#6e8f70"/>
+<path d="M95 325l95-105 90 80 105-125 160 150z" fill="#8fac8b"/>
+<ellipse cx="320" cy="334" rx="255" ry="48" fill="#cfb786"/>
+<g fill="#263f32" stroke="#f4c64f" stroke-width="7">
+<path d="M170 265l24-70 24 70-13 48h-22z"/>
+<path d="M302 236l28-82 28 82-15 62h-26z"/>
+<path d="M445 270l23-66 23 66-12 45h-22z"/>
+</g>
+<g stroke="#263f32" stroke-width="10" stroke-linecap="round">
+<path d="M194 205l-35-32M331 164l37-35M468 211l36-28"/>
+</g>
+<circle cx="540" cy="92" r="45" fill="#e26a35"/>
+<path d="M525 92h30M540 77v30" stroke="#fff" stroke-width="8"/>
+</svg>
+<p class="illustration-caption">Warhammer 40K, Age of Sigmar, Spearhead, StarCraft et autres systèmes.</p>
+</div>
+</div>
+<div class="review-card-grid">
           <article>
             <span>⚔️</span>
             <h3>Warhammer 40K, l'univers de prédilection</h3>

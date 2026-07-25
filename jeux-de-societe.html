@@ -21,6 +21,82 @@
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
 
+
+<style>
+/* V14 — entêtes plus visibles et illustrations intégrées */
+.subpage-hero,
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(246,190,66,.28), transparent 28%),
+    linear-gradient(135deg,#213c31 0%,#2f5746 58%,#3f6b56 100%) !important;
+  color:#fff !important;
+  padding:clamp(3.5rem,8vw,6.5rem) 0 !important;
+}
+.subpage-hero::after,
+.page-hero::after {
+  content:"";
+  position:absolute;
+  right:-90px;
+  bottom:-210px;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  background:rgba(255,255,255,.06);
+  pointer-events:none;
+}
+.subpage-hero .container,
+.page-hero .container {position:relative;z-index:1}
+.subpage-hero .eyebrow,
+.page-hero .eyebrow {
+  color:#ffd56a !important;
+  font-weight:800;
+  letter-spacing:.14em;
+}
+.subpage-hero h1,
+.page-hero h1 {
+  color:#fff !important;
+  max-width:900px;
+  text-shadow:0 3px 16px rgba(0,0,0,.24);
+}
+.subpage-hero .hero-intro,
+.page-hero .hero-intro {
+  color:rgba(255,255,255,.95) !important;
+  max-width:780px;
+  font-size:clamp(1.05rem,2vw,1.3rem);
+  line-height:1.65;
+}
+.section-illustration {
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);
+  gap:clamp(1.5rem,4vw,3rem);
+  align-items:center;
+  margin-bottom:2rem;
+}
+.illustration-panel {
+  min-height:260px;
+  padding:1rem;
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(37,70,55,.98),rgba(56,99,77,.96));
+  box-shadow:0 18px 45px rgba(30,55,44,.18);
+  display:grid;
+  place-items:center;
+}
+.illustration-panel svg {width:min(100%,420px);height:auto;display:block}
+.illustration-caption {
+  margin:.85rem 0 0;
+  color:rgba(255,255,255,.88);
+  text-align:center;
+  font-size:.92rem;
+}
+.news-grid {margin-top:1.5rem}
+@media (max-width:780px) {
+  .section-illustration {grid-template-columns:1fr}
+  .illustration-panel {min-height:210px}
+}
+</style>
+
 </head>
 <body>
 
@@ -139,7 +215,8 @@
 
     <section class="section">
       <div class="container">
-        <div class="section-heading">
+        <div class="section-illustration"><div>
+<div class="section-heading">
           <div>
             <p class="section-label">Les jeux qui reviennent souvent</p>
             <h2>Un échantillon de nos jeux de société les plus récurrents</h2>
@@ -151,7 +228,26 @@
           </p>
         </div>
 
-        <div class="review-card-grid">
+        </div>
+
+<div class="illustration-panel">
+<svg viewBox="0 0 640 420" role="img" aria-label="Plateau, cartes, meeples et dés">
+<rect x="35" y="35" width="570" height="350" rx="32" fill="#f4e6c8"/>
+<path d="M95 110h210v155H95z" fill="#88a77c" stroke="#274638" stroke-width="9"/>
+<path d="M125 140h150M125 180h150M125 220h150" stroke="#d8edd0" stroke-width="13"/>
+<circle cx="390" cy="132" r="48" fill="#f3b839"/>
+<circle cx="488" cy="132" r="48" fill="#de6a31"/>
+<path d="M365 220l48-38 48 38-18 78h-60z" fill="#58a6c7" stroke="#274638" stroke-width="8"/>
+<path d="M485 232c0-32 52-32 52 0v58h-52z" fill="#cf5548" stroke="#274638" stroke-width="8"/>
+<rect x="117" y="292" width="94" height="64" rx="12" fill="#fff" stroke="#274638" stroke-width="8"/>
+<circle cx="143" cy="316" r="7" fill="#274638"/><circle cx="184" cy="333" r="7" fill="#274638"/>
+<rect x="235" y="292" width="94" height="64" rx="12" fill="#ffd56a" stroke="#274638" stroke-width="8"/>
+<path d="M254 326h56" stroke="#274638" stroke-width="9"/>
+</svg>
+<p class="illustration-caption">Jeux experts, classiques accessibles et nouveautés apportées par les membres.</p>
+</div>
+</div>
+<div class="review-card-grid">
           <article>
             <span>🚀</span>
             <h3>Terraforming Mars, notre grande référence</h3>

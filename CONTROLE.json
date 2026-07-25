@@ -1,20 +1,21 @@
 {
   "jeux-de-societe.html": {
-    "doctype": true,
-    "footer_preserved": true,
-    "actualites_nav": true,
-    "open_to_proposals": true
+    "style": true,
+    "svg": true
   },
   "jeux-de-cartes.html": {
-    "doctype": true,
-    "footer_preserved": true,
-    "actualites_nav": true,
-    "open_to_proposals": true
+    "style": true,
+    "svg": true
   },
   "wargame.html": {
-    "doctype": true,
-    "footer_preserved": true,
-    "actualites_nav": true,
-    "open_to_proposals": true
+    "style": true,
+    "svg": true
+  },
+  "actualites.html": {
+    "style": true,
+    "svg": true
+  },
+  "scripts/build-actualites.mjs": {
+    "persistent_fix": true
   }
 }
