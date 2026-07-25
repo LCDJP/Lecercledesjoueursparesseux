@@ -1,0 +1,20 @@
+{
+  "version": "V16.8",
+  "objet": "Correction de la mise en page et développement éditorial des actualités Facebook",
+  "modifications": [
+    "Cartes verticales sans superposition image/titre",
+    "Images limitées à 180 px sur ordinateur et 190 px sur mobile",
+    "Titres responsive de 1,45 à 1,9 rem",
+    "Résumés de cartes jusqu’à 180 mots",
+    "Articles en plusieurs paragraphes pour les publications reconnues",
+    "Mode prudent pour les sources courtes ou tronquées"
+  ],
+  "fichiers_principaux": [
+    "scripts/build-actualites.mjs",
+    "actualites.html",
+    "actualites/*.html",
+    "sitemap.xml",
+    "LISEZ-MOI.txt"
+  ],
+  "generation": "npm run build:news"
+}

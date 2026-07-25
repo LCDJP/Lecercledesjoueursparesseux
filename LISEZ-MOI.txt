@@ -30,3 +30,16 @@ CHANGEMENTS V16.7
 
 IMPORTANT
 La longueur réelle dépend du texte récupéré sur Facebook. Si Facebook transmet une publication tronquée (« V… »), le générateur ne complète pas artificiellement le contenu. La prochaine synchronisation reconstruira automatiquement actualites.html et toutes les pages du dossier actualites/.
+
+
+=== V16.8 — ACTUALITÉS LISIBLES ET DÉVELOPPÉES ===
+- Correction de la superposition entre les images et les titres.
+- Titres des cartes limités à une taille lisible et responsive.
+- Images de la page Actualités limitées à 180 px de hauteur (190 px sur mobile).
+- Cartes en deux colonnes sur grand écran et une colonne sur petit écran.
+- Présentations de carte développées jusqu’à environ 180 mots.
+- Articles structurés en plusieurs paragraphes quand les informations disponibles le permettent.
+- Les publications Facebook courtes ne sont plus artificiellement copiées : des modèles éditoriaux fidèles sont utilisés pour les types reconnus.
+- Aucune date, activité ou résultat absent de la source n’est inventé.
+
+Installation : remplacer les fichiers du dépôt par ceux de cette archive, puis publier sur GitHub. Le workflow Facebook continuera à régénérer automatiquement actualites.html et les pages du dossier actualites/.
