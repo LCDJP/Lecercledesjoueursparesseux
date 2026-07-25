@@ -96,37 +96,40 @@ function detectTopics(text = "") {
 
 function buildSummaries(post) {
   const cleaned = cleanFacebookText(post.text);
+  const topics = detectTopics(cleaned);
+
   if (!cleaned) {
-    const fallback = "Une nouvelle actualité du Cercle des Joueurs Paresseux est disponible. La publication d’origine peut être consultée sur Facebook pour obtenir les informations et les illustrations associées.";
+    const fallback = "Une nouvelle actualité du Cercle des Joueurs Paresseux est disponible. La publication originale reste accessible sur Facebook pour consulter les informations transmises par le club.";
     return { card: fallback, paragraphs: [fallback], sourceTooShort: true };
   }
 
-  if (/a changé sa photo de couverture/i.test(cleaned)) {
+  // Ces deux publications très courtes nécessitent une reformulation éditoriale
+  // dédiée. Les phrases ci-dessous n'ajoutent aucun événement non indiqué :
+  // elles replacent uniquement l'information dans le contexte stable du site.
+  if (/photo de couverture/i.test(cleaned)) {
     const paragraphs = [
-      "Le Cercle des Joueurs Paresseux a renouvelé sa photo de couverture afin de mieux représenter son identité visuelle. Cette illustration devient l’image principale utilisée pour présenter le club sur Facebook et dans sa communication en ligne. Elle permet de reconnaître plus rapidement le Cercle et de donner, dès le premier regard, une idée de son univers ludique.",
-      "La nouvelle composition réunit plusieurs éléments associés aux activités du club : les jeux de société, les jeux de cartes, les jeux de figurines et le plaisir de se retrouver autour d’une table. La mascotte paresseux reste au centre de cette identité. Elle rappelle le nom du Cercle tout en conservant le ton accueillant et décontracté qui caractérise ses rencontres.",
-      "Cette mise à jour accompagne la volonté du Cercle de présenter ses activités de manière plus claire et plus cohérente. L’image pourra servir de repère aux personnes qui découvrent le club, qu’elles arrivent depuis Facebook, le site Internet ou une annonce locale. Elle contribue aussi à harmoniser les différents supports de communication utilisés pour annoncer les soirées, partager les événements et montrer la diversité des jeux pratiqués.",
-      "Une identité visuelle cohérente est particulièrement utile pour un club qui réunit plusieurs pratiques. Selon les soirées et les joueurs présents, le public peut s’intéresser à un jeu de plateau, à un jeu de cartes ou à une partie avec figurines. La couverture ne cherche donc pas à représenter un seul titre : elle donne une image générale du Cercle, de ses tables de jeu et de la convivialité recherchée lors des rencontres.",
-      "Cette illustration pourra également accompagner les personnes qui découvrent le Cercle pour la première fois. En retrouvant la même mascotte et les mêmes codes graphiques d’un support à l’autre, elles peuvent vérifier plus facilement qu’elles consultent bien les informations officielles du club. Ce repère visuel complète le nom du Cercle, les renseignements pratiques et les pages consacrées aux différents types de jeux.",
-      "La publication Facebook originale permet de voir la nouvelle couverture dans son contexte et de retrouver les réactions de la communauté. Le site du Cercle reste, de son côté, le point de départ pour consulter les informations pratiques et découvrir les principaux univers de jeu proposés à Vailhauquès."
+      "Le Cercle des Joueurs Paresseux a renouvelé sa photo de couverture. Cette image devient le principal visuel de présentation du club sur ses supports de communication et permet de reconnaître plus rapidement son identité. Elle rassemble les éléments graphiques associés à l’univers du Cercle et à ses activités ludiques.",
+      "Cette mise à jour accompagne la présentation du club auprès des joueurs de Vailhauquès et des communes voisines. Le Cercle réunit des personnes intéressées par les jeux de société, les jeux de cartes et les jeux de figurines. La nouvelle couverture sert donc de repère commun à ces différentes pratiques, sans privilégier un seul type de jeu.",
+      "Le visuel peut désormais accompagner les annonces, les actualités et les informations pratiques publiées par le Cercle. Il contribue à rendre la communication plus cohérente entre le site Internet et la page Facebook, tout en facilitant l’identification du club par les personnes qui le découvrent.",
+      "La publication Facebook originale permet de consulter l’image dans son contexte et de retrouver les réactions laissées par la communauté. Le site conserve pour sa part une présentation durable de cette évolution dans les actualités du Cercle."
     ];
-    return { card: trimWords(paragraphs.slice(0, 3).join(" "), 180), paragraphs, sourceTooShort: true };
+    const card = "Le Cercle des Joueurs Paresseux a renouvelé sa photo de couverture afin de mieux identifier le club et son univers. Ce nouveau visuel accompagne désormais sa communication et rassemble, dans une même image, les différentes pratiques proposées : jeux de société, jeux de cartes et jeux de figurines. Il sert de repère aux joueurs de Vailhauquès et des environs qui découvrent les activités du Cercle. Cette mise à jour contribue aussi à rendre plus cohérente la présentation du club entre son site Internet et sa page Facebook. L’article explique le rôle de cette nouvelle identité visuelle et renvoie vers la publication originale pour voir l’image dans son contexte.";
+    return { card: trimWords(card, 180), paragraphs, sourceTooShort: true };
   }
 
   if (/a désormais son site Internet/i.test(cleaned)) {
     const paragraphs = [
-      "Le Cercle des Joueurs Paresseux dispose désormais de son propre site Internet. Cette mise en ligne marque une étape importante pour le club : les visiteurs peuvent maintenant découvrir ses activités sans devoir parcourir uniquement les publications des réseaux sociaux. Le site rassemble dans un même espace les informations essentielles pour comprendre ce qui est proposé et préparer une première venue.",
-      "Les différentes rubriques présentent les grands univers pratiqués au Cercle. Les jeux de société, les jeux de cartes et les jeux de figurines disposent chacun d’un espace dédié, afin que chaque joueur puisse identifier rapidement les activités qui l’intéressent. Le fonctionnement du club et les renseignements utiles pour venir jouer à Vailhauquès sont également réunis de façon plus lisible.",
-      "Ce nouveau support complète la page Facebook plutôt qu’il ne la remplace. Facebook conserve son rôle pour les publications, les photos, les réactions et les échanges immédiats. Le site devient la vitrine durable du Cercle : il permet de retrouver facilement les informations qui ne doivent pas disparaître au fil des publications et offre des pages directement accessibles depuis les moteurs de recherche.",
-      "La rubrique Actualités assure le lien entre ces deux supports. Les principales publications publiques du Cercle y sont reprises sous une forme plus lisible, avec un titre, une présentation développée et un accès à la publication Facebook d’origine. Les personnes intéressées peuvent ainsi comprendre le sujet avant de choisir de consulter les photos ou les commentaires sur le réseau social.",
-      "Le site permet aussi de mieux orienter les visiteurs selon leurs centres d’intérêt. Une personne qui recherche avant tout des jeux de société peut accéder directement à la présentation correspondante, tandis qu’un joueur intéressé par les cartes ou les figurines peut consulter les pages qui lui sont consacrées. Cette organisation évite de devoir retrouver une information au milieu d’un long fil de publications et rend la découverte du club plus simple.",
-      "Les renseignements pratiques gagnent également en visibilité. Le site indique le cadre des rencontres et rassemble les éléments nécessaires pour savoir où se rendre et comment prendre contact avec le Cercle. Ces informations restent accessibles dans le temps, même lorsque de nouvelles publications sont ajoutées sur Facebook. Elles constituent ainsi un point de référence stable pour les nouveaux joueurs comme pour les membres habituels.",
-      "Le site a enfin pour objectif de faciliter la découverte du Cercle par les joueurs de Vailhauquès et des communes voisines. Il donne une vue d’ensemble des activités et indique où trouver les renseignements pratiques pour rejoindre une soirée. La publication Facebook originale reste accessible en fin d’article pour retrouver l’annonce initiale et les réactions qui l’accompagnent."
+      "Le Cercle des Joueurs Paresseux dispose désormais de son propre site Internet. Cette ouverture constitue une étape importante pour le club, qui peut maintenant regrouper ses informations essentielles dans un espace accessible à tous, sans dépendre uniquement des publications diffusées sur les réseaux sociaux.",
+      "Le site présente les principales familles de jeux pratiquées au Cercle : jeux de société, jeux de cartes et jeux de figurines. Chaque visiteur peut ainsi comprendre rapidement la diversité des activités proposées et repérer les pages correspondant à ses centres d’intérêt avant de venir rencontrer les membres.",
+      "Les informations pratiques ont également été réunies pour faciliter une première visite. Le fonctionnement du club, le lieu des rencontres et les indications utiles pour venir jouer à Vailhauquès sont accessibles depuis les différentes pages. L’objectif est de répondre aux questions les plus fréquentes et de rendre la découverte du Cercle plus simple.",
+      "Ce nouveau support complète la page Facebook. Le site conserve une présentation structurée et durable des activités, tandis que Facebook reste utile pour suivre les publications originales, les réactions et les échanges de la communauté. Les deux espaces ont donc des rôles complémentaires.",
+      "La rubrique Actualités permet enfin de retrouver les informations récentes du Cercle sous une forme plus lisible. Chaque publication peut y être présentée avec un titre, une image, un texte développé et un lien vers sa source Facebook. Le visiteur dispose ainsi d’assez d’éléments pour savoir si le sujet l’intéresse avant de quitter le site.",
+      "Avec cette mise en ligne, le Cercle améliore sa visibilité auprès des joueurs de Vailhauquès et des communes proches de Montpellier. Le site devient la porte d’entrée principale pour découvrir le club, ses pratiques et les renseignements nécessaires pour venir jouer."
     ];
-    return { card: trimWords(paragraphs.slice(0, 3).join(" "), 180), paragraphs, sourceTooShort: true };
+    const card = "Le Cercle des Joueurs Paresseux possède désormais son propre site Internet. Cette nouvelle vitrine rassemble les jeux pratiqués, le fonctionnement du club et les informations utiles pour venir jouer à Vailhauquès. Les visiteurs peuvent y découvrir les activités autour des jeux de société, des jeux de cartes et des jeux de figurines, puis repérer facilement les pages qui correspondent à leurs envies. Le site complète la page Facebook : il conserve une présentation structurée et durable, tandis que le réseau social reste le lieu des publications originales et des échanges. Cette mise en ligne améliore donc à la fois l’information des futurs joueurs et la visibilité locale du Cercle.";
+    return { card: trimWords(card, 180), paragraphs, sourceTooShort: true };
   }
 
-  const topics = detectTopics(cleaned);
   const sentences = splitSentences(cleaned);
   const selected = sentences
     .map((sentence, index) => ({ sentence, index, score: sentenceScore(sentence, index, topics) }))
@@ -135,20 +138,27 @@ function buildSummaries(post) {
     .sort((a, b) => a.index - b.index)
     .map(item => item.sentence);
 
-  const source = selected.join(" ") || cleaned;
-  const topicLabels = topics.map(topic => topic.label).join(", ");
-  const intro = `Cette actualité du Cercle des Joueurs Paresseux concerne ${topicLabels}. ${source}`;
-  const paragraphs = [trimWords(intro, 190)];
-  if (wordCount(source) > 120) {
-    const words = normalizeSpace(source).split(/\s+/);
-    const midpoint = Math.ceil(words.length / 2);
-    paragraphs.splice(0, 1,
-      words.slice(0, midpoint).join(" "),
-      words.slice(midpoint).join(" ")
-    );
+  const articleBase = selected.join(" ") || cleaned;
+  const paragraphs = [];
+  let current = [];
+  let count = 0;
+  for (const sentence of selected.length ? selected : [cleaned]) {
+    const words = wordCount(sentence);
+    if (current.length && count + words > 105) {
+      paragraphs.push(current.join(" "));
+      current = [];
+      count = 0;
+    }
+    current.push(sentence);
+    count += words;
   }
-  const card = trimWords(paragraphs.join(" "), 180);
-  return { card, paragraphs, sourceTooShort: wordCount(cleaned) < 100 };
+  if (current.length) paragraphs.push(current.join(" "));
+
+  return {
+    card: trimWords(articleBase, 180),
+    paragraphs: paragraphs.map(p => trimWords(p, 130)),
+    sourceTooShort: wordCount(cleaned) < 120
+  };
 }
 function makeArticleTitle(post) {
   const cleaned = cleanFacebookText(post.text);
@@ -165,31 +175,24 @@ function makeDescription(summary) {
   return trimWords(summary, 26).slice(0, 158);
 }
 
-function articleBodyHtml(paragraphs, sourceTooShort) {
-  const body = paragraphs.map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join("\n");
+function summaryHtml(paragraphs, sourceTooShort) {
   const note = sourceTooShort
-    ? '<p class="news-source-note">La publication Facebook disponible est courte ou tronquée. L’article développe uniquement les éléments vérifiables et le contexte propre au Cercle, sans ajouter de résultat, de date ou d’activité non mentionnés.</p>'
+    ? '<p class="news-source-note">La publication Facebook disponible est courte ou tronquée. L’article développe uniquement les informations vérifiables et le contexte stable du Cercle.</p>'
     : "";
+  const body = (paragraphs || []).map(paragraph => `<p>${escapeHtml(paragraph)}</p>`).join("\n");
   return `<div class="news-summary"><p class="eyebrow">L’essentiel</p>${body}${note}</div>`;
 }
+
 function sharedStyles() {
   return `
-.page-hero{position:relative;overflow:hidden;background:radial-gradient(circle at 85% 20%,rgba(246,190,66,.28),transparent 28%),linear-gradient(135deg,#213c31 0%,#2f5746 58%,#3f6b56 100%)!important;color:#fff!important;padding:clamp(3.5rem,8vw,6.5rem) 0!important}
+.page-hero{position:relative;overflow:hidden;background:radial-gradient(circle at 85% 20%,rgba(246,190,66,.28),transparent 28%),linear-gradient(135deg,#213c31 0%,#2f5746 58%,#3f6b56 100%)!important;color:#fff!important;padding:clamp(3.25rem,7vw,5.75rem) 0!important}
 .page-hero::after{content:"";position:absolute;right:-90px;bottom:-210px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
-.page-hero .container{position:relative;z-index:1}.page-hero .eyebrow{color:#ffd56a!important;font-weight:800;letter-spacing:.14em}.page-hero h1{color:#fff!important;max-width:900px;text-shadow:0 3px 16px rgba(0,0,0,.24)}.page-hero .hero-intro{color:rgba(255,255,255,.95)!important;max-width:780px;font-size:clamp(1.05rem,2vw,1.3rem);line-height:1.65}
-.news-grid{margin-top:1.5rem;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;align-items:start}
-.news-card{display:flex!important;flex-direction:column!important;min-width:0;overflow:hidden;background:#fff;border-radius:18px;box-shadow:0 10px 28px rgba(0,0,0,.09)}
-.news-card-image{display:block!important;width:100%;height:180px!important;min-height:180px!important;max-height:180px!important;aspect-ratio:auto!important;overflow:hidden;background:#e7ece8}
-.news-card-image img{display:block;width:100%;height:180px!important;min-height:180px!important;max-height:180px!important;object-fit:cover}
-.news-card-body{display:flex;flex:1;flex-direction:column;padding:1.45rem!important;min-width:0}
-.news-card-body .eyebrow{margin:0 0 .45rem;font-size:.76rem;line-height:1.3}
-.news-card-body h2,.news-card h2{margin:0 0 .65rem!important;font-size:clamp(1.45rem,2.15vw,1.9rem)!important;line-height:1.12!important;letter-spacing:-.025em;overflow-wrap:anywhere}
-.news-card-body h2 a{display:block;color:inherit;text-decoration:none}
-.news-card-body>p:not(.eyebrow){line-height:1.68}.news-topic-line{font-size:.9rem!important;color:#52645b;margin:0 0 .9rem!important}.news-card-body .button{align-self:flex-start;margin-top:auto}
-.news-summary{margin:0 0 1.75rem;padding:clamp(1.25rem,3vw,2rem);border-left:5px solid #d7a82f;border-radius:0 16px 16px 0;background:#f7f3e8}.news-summary>p:not(.eyebrow){margin:.75rem 0 0;font-size:1.06rem;line-height:1.78}.news-source-note{margin-top:1.25rem!important;padding-top:1rem;border-top:1px solid rgba(38,63,50,.16);font-size:.9rem!important;color:#5e655f}.news-main-image img{width:100%;max-height:560px;object-fit:contain;border-radius:18px}.news-topic-links{display:flex;gap:.6rem;flex-wrap:wrap;margin:1.25rem 0}
-@media(max-width:820px){.news-grid{grid-template-columns:1fr}.news-card-image,.news-card-image img{height:190px!important;min-height:190px!important;max-height:190px!important}}
+.page-hero .container{position:relative;z-index:1}.page-hero .eyebrow{color:#ffd56a!important;font-weight:800;letter-spacing:.14em}.page-hero h1{color:#fff!important;max-width:900px;font-size:clamp(2rem,5vw,4rem)!important;line-height:1.08!important;text-shadow:0 3px 16px rgba(0,0,0,.24)}.page-hero .hero-intro{color:rgba(255,255,255,.95)!important;max-width:780px;font-size:clamp(1.02rem,2vw,1.22rem);line-height:1.65}
+.news-grid{margin-top:1.5rem;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;align-items:start}.news-card{display:flex!important;flex-direction:column!important;min-width:0;overflow:hidden;border-radius:18px;background:#fff;box-shadow:0 12px 32px rgba(31,48,39,.10)}.news-card-image{display:block;width:100%;height:180px;overflow:hidden;background:#e7ece8;flex:0 0 180px}.news-card-image img{display:block;width:100%;height:180px;object-fit:cover}.news-card-body{padding:1.35rem 1.4rem 1.5rem;min-width:0}.news-card-body .eyebrow{margin:0 0 .45rem;font-size:.78rem}.news-card-body h2{margin:.1rem 0 .55rem!important;font-size:clamp(1.35rem,2.2vw,1.85rem)!important;line-height:1.18!important;overflow-wrap:anywhere}.news-card-body h2 a{color:inherit;text-decoration:none}.news-card-body>p:not(.eyebrow){line-height:1.65}.news-topic-line{font-size:.9rem;color:#52645b;margin:.2rem 0 .85rem}.news-summary{margin:0 0 1.75rem;padding:1.35rem 1.5rem;border-left:5px solid #d7a82f;border-radius:0 16px 16px 0;background:#f7f3e8}.news-summary>p:not(.eyebrow){margin:.8rem 0;font-size:1.06rem;line-height:1.78}.news-source-note{margin-top:1.15rem!important;padding-top:1rem;border-top:1px solid rgba(70,80,73,.18);font-size:.9rem!important;color:#5e655f}.news-main-image{margin:0 0 1.6rem}.news-main-image img{display:block;width:100%;max-height:560px;object-fit:contain;border-radius:18px}.news-topic-links{display:flex;gap:.6rem;flex-wrap:wrap;margin:1.25rem 0}
+@media(max-width:820px){.news-grid{grid-template-columns:1fr}.news-card-image,.news-card-image img{height:175px;flex-basis:175px}}
 `;
 }
+
 function articleHtml(post, slug, title, description, summaries) {
   const topics = detectTopics(post.text);
   const date = new Date(post.date);
@@ -201,7 +204,7 @@ function articleHtml(post, slug, title, description, summaries) {
   const sourceLink = post.url ? `<p><a class="button button-primary" href="${escapeHtml(post.url)}" rel="noopener noreferrer" target="_blank">Voir la publication originale sur Facebook</a></p>` : "";
   const img = post.local_image ? `<figure class="news-main-image"><img src="../${escapeHtml(post.local_image)}" alt="Illustration de l'actualité du Cercle des Joueurs Paresseux" loading="lazy"></figure>` : "";
   const schema = {"@context":"https://schema.org","@type":"BlogPosting",headline:title,description,datePublished:iso,dateModified:iso,mainEntityOfPage:canonical,image:[image],author:{"@type":"Organization",name:"Le Cercle des Joueurs Paresseux",url:BASE_URL},publisher:{"@type":"Organization",name:"Le Cercle des Joueurs Paresseux"}};
-  return `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escapeHtml(title)} | LCDJP</title><meta name="description" content="${escapeHtml(description)}"><meta name="robots" content="index, follow, max-image-preview:large"><link rel="canonical" href="${canonical}"><meta property="og:type" content="article"><meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${escapeHtml(description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${image}"><link rel="icon" href="../assets/images/logo-cercle-joueurs-paresseux.webp"><link rel="stylesheet" href="../assets/css/style.css"><style>${sharedStyles()}</style><script type="application/ld+json">${JSON.stringify(schema)}</script></head><body><a class="skip-link" href="#contenu">Aller au contenu</a><header class="site-header"><div class="container header-inner"><a class="brand" href="../index.html"><img src="../assets/images/logo-cercle-joueurs-paresseux.webp" alt="" width="72" height="72"><span><strong>Le Cercle des Joueurs Paresseux</strong><small>Club de jeux près de Montpellier</small></span></a><nav aria-label="Navigation principale" class="main-nav page-nav"><a href="../index.html">Accueil</a><a href="../jeux-de-societe.html">Jeux de société</a><a href="../jeux-de-cartes.html">Jeux de cartes</a><a href="../wargame.html">Wargame</a><a href="../actualites.html">Actualités</a></nav></div></header><main id="contenu"><section class="page-hero compact-hero"><div class="container"><p class="eyebrow">Dernières actualités</p><h1>${escapeHtml(title)}</h1><p class="hero-intro">Publié le ${escapeHtml(dateFr)} par le Cercle des Joueurs Paresseux.</p></div></section><section class="section"><article class="container prose news-article">${img}${articleBodyHtml(summaries.paragraphs, summaries.sourceTooShort)}<div class="news-topic-links">${links}</div>${sourceLink}<p><a href="../actualites.html">← Toutes les actualités du Cercle</a></p></article></section></main><footer class="site-footer"><div class="container footer-main"><div><strong>Le Cercle des Joueurs Paresseux</strong><span>Vendredi à 20 h 30 · Salle de l'Âge d'Or, Vailhauquès</span></div></div></footer></body></html>`;
+  return `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escapeHtml(title)} | LCDJP</title><meta name="description" content="${escapeHtml(description)}"><meta name="robots" content="index, follow, max-image-preview:large"><link rel="canonical" href="${canonical}"><meta property="og:type" content="article"><meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${escapeHtml(description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${image}"><link rel="icon" href="../assets/images/logo-cercle-joueurs-paresseux.webp"><link rel="stylesheet" href="../assets/css/style.css"><style>${sharedStyles()}</style><script type="application/ld+json">${JSON.stringify(schema)}</script></head><body><a class="skip-link" href="#contenu">Aller au contenu</a><header class="site-header"><div class="container header-inner"><a class="brand" href="../index.html"><img src="../assets/images/logo-cercle-joueurs-paresseux.webp" alt="" width="72" height="72"><span><strong>Le Cercle des Joueurs Paresseux</strong><small>Club de jeux près de Montpellier</small></span></a><nav aria-label="Navigation principale" class="main-nav page-nav"><a href="../index.html">Accueil</a><a href="../jeux-de-societe.html">Jeux de société</a><a href="../jeux-de-cartes.html">Jeux de cartes</a><a href="../wargame.html">Wargame</a><a href="../actualites.html">Actualités</a></nav></div></header><main id="contenu"><section class="page-hero compact-hero"><div class="container"><p class="eyebrow">Dernières actualités</p><h1>${escapeHtml(title)}</h1><p class="hero-intro">Publié le ${escapeHtml(dateFr)} par le Cercle des Joueurs Paresseux.</p></div></section><section class="section"><article class="container prose news-article">${img}${summaryHtml(summaries.paragraphs, summaries.sourceTooShort)}<div class="news-topic-links">${links}</div>${sourceLink}<p><a href="../actualites.html">← Toutes les actualités du Cercle</a></p></article></section></main><footer class="site-footer"><div class="container footer-main"><div><strong>Le Cercle des Joueurs Paresseux</strong><span>Vendredi à 20 h 30 · Salle de l'Âge d'Or, Vailhauquès</span></div></div></footer></body></html>`;
 }
 
 function card(post, slug, title, summaries) {
