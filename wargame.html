@@ -235,6 +235,31 @@
 }
 </style>
 
+
+<style>
+/* V16.3 — hero Wargame panoramique et compact */
+#wargame-univers-hero {
+  min-height: 0;
+  max-height: 340px;
+}
+#wargame-univers-hero img {
+  width: 100%;
+  height: clamp(230px, 32vw, 340px);
+  min-height: 0;
+  object-fit: cover;
+  object-position: center 52%;
+}
+@media (max-width: 780px) {
+  #wargame-univers-hero {
+    max-height: 270px;
+  }
+  #wargame-univers-hero img {
+    height: clamp(210px, 52vw, 270px);
+    object-position: center center;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -279,11 +304,11 @@
       </div>
     </section>
 
-<figure class="club-hero-photo">
-  <img src="assets/images/club/aos-hero.webp"
-       alt="Partie d’Age of Sigmar organisée par le Cercle des Joueurs Paresseux"
+<figure class="club-hero-photo" id="wargame-univers-hero">
+  <img src="assets/images/club/wargame-hero-univers.webp"
+       alt="Bannière réunissant les univers StarCraft Tabletop, Warhammer 40,000 et Age of Sigmar"
        width="1600" height="1200">
-  <figcaption>Une partie d’Age of Sigmar jouée au Cercle des Joueurs Paresseux, avec figurines peintes et décors de bataille.</figcaption>
+  <figcaption>Les trois grands univers de figurines pratiqués au Cercle : StarCraft Tabletop, Warhammer 40,000 et Age of Sigmar.</figcaption>
 </figure>
 <p class="club-authenticity"><strong>Des tables réellement jouées au Cercle.</strong> Toutes les photographies de cette page proviennent de parties organisées par les membres du club.</p>
 
