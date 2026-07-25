@@ -97,6 +97,109 @@
 }
 </style>
 
+
+
+<style>
+/* V16 — vraies photos des soirées du club */
+.club-hero-photo {
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+  border-radius: 28px;
+  margin-top: 2rem;
+  box-shadow: 0 22px 55px rgba(22,44,34,.22);
+}
+.club-hero-photo img {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  object-fit: cover;
+  display: block;
+}
+.club-hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(12,30,24,.84), transparent 58%);
+}
+.club-hero-photo figcaption {
+  position: absolute;
+  z-index: 1;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 1rem;
+  color: #fff;
+  font-size: .98rem;
+  line-height: 1.5;
+  text-shadow: 0 2px 10px rgba(0,0,0,.5);
+}
+.club-authenticity {
+  margin: 1.4rem 0 0;
+  padding: 1rem 1.2rem;
+  border-left: 4px solid #e8b63e;
+  background: #fff7df;
+  border-radius: 0 14px 14px 0;
+  color: #29483a;
+}
+.club-story {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(300px,.95fr);
+  gap: clamp(1.5rem,4vw,3rem);
+  align-items: center;
+  margin: 2.5rem 0;
+}
+.club-story.reverse .club-story-media { order: -1; }
+.club-story-media {
+  overflow: hidden;
+  border-radius: 22px;
+  box-shadow: 0 16px 36px rgba(24,45,36,.17);
+  background: #203b30;
+}
+.club-story-media img {
+  display: block;
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+}
+.club-story-media figcaption {
+  padding: .75rem 1rem;
+  background: #203b30;
+  color: rgba(255,255,255,.9);
+  font-size: .88rem;
+}
+.club-gallery {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.club-gallery figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #203b30;
+  box-shadow: 0 12px 28px rgba(24,45,36,.14);
+}
+.club-gallery img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  display: block;
+}
+.club-gallery figcaption {
+  color: #fff;
+  padding: .7rem .85rem;
+  font-size: .84rem;
+}
+@media (max-width: 820px) {
+  .club-story { grid-template-columns: 1fr; }
+  .club-story.reverse .club-story-media { order: initial; }
+  .club-gallery { grid-template-columns: 1fr; }
+  .club-hero-photo, .club-hero-photo img { min-height: 300px; }
+  .club-story-media img { height: 270px; }
+}
+</style>
+
 </head>
 <body>
 
@@ -139,6 +242,15 @@
         </div>
       </div>
     </section>
+
+<figure class="club-hero-photo">
+  <img src="assets/images/club/magic-hero.webp"
+       alt="Partie de Magic The Gathering organisée par le Cercle des Joueurs Paresseux"
+       width="1600" height="1200">
+  <figcaption>Une table Magic: The Gathering du Cercle des Joueurs Paresseux, avec decks, tapis de jeu et parties multijoueurs.</figcaption>
+</figure>
+<p class="club-authenticity"><strong>Ces photos montrent nos propres soirées.</strong> Elles ont été prises pendant des parties et événements organisés par le Cercle des Joueurs Paresseux.</p>
+
 
     <section class="section">
       <div class="container">
@@ -200,24 +312,9 @@
 
         </div>
 
-<div class="illustration-panel">
-<svg viewBox="0 0 640 420" role="img" aria-label="Cartes à jouer">
-<circle cx="320" cy="210" r="165" fill="#17352a" stroke="#f2c14e" stroke-width="10"/>
-<g transform="translate(125 90) rotate(-12 95 130)">
-<rect width="190" height="270" rx="22" fill="#f8f3e8" stroke="#d46236" stroke-width="10"/>
-<circle cx="95" cy="110" r="48" fill="#d46236"/>
-<path d="M65 195h60M55 220h80" stroke="#274638" stroke-width="12"/>
-</g>
-<g transform="translate(325 65) rotate(12 95 130)">
-<rect width="190" height="270" rx="22" fill="#f8f3e8" stroke="#5b74b8" stroke-width="10"/>
-<path d="M95 55l42 72-42 72-42-72z" fill="#5b74b8"/>
-<circle cx="95" cy="236" r="12" fill="#274638"/>
-</g>
-<circle cx="320" cy="210" r="52" fill="#f2c14e" stroke="#fff" stroke-width="8"/>
-<path d="M294 210h52M320 184v52" stroke="#274638" stroke-width="12" stroke-linecap="round"/>
-</svg>
-<p class="illustration-caption">Avant-premières Magic, Commander et autres jeux proposés par les joueurs.</p>
-</div>
+
+
+
 </div>
 <div class="review-card-grid">
           <article>
@@ -311,7 +408,40 @@
         <a class="button button-light" href="index.html#venir">Nous rencontrer à Vailhauquès</a>
       </div>
     </section>
-  </main>
+  
+<section class="section">
+  <div class="container">
+    <div class="club-story">
+      <div>
+        <p class="section-label">Magic au club</p>
+        <h2>Avant-premières et parties de Commander</h2>
+        <p>Magic: The Gathering est le jeu de cartes qui revient le plus souvent au Cercle. Les avant-premières sont l’occasion de découvrir une nouvelle extension dans une ambiance détendue, tandis que le Commander rassemble plusieurs joueurs autour de parties plus longues, narratives et riches en interactions.</p>
+        <p>Les photos montrent la diversité des decks, des tapis et des styles de jeu présents lors de nos soirées. Le club reste naturellement ouvert à d’autres jeux de cartes et aux propositions des membres.</p>
+      </div>
+      <figure class="club-story-media">
+        <img src="assets/images/club/magic-room.webp" alt="Plusieurs tables de Magic pendant une soirée du club" loading="lazy">
+        <figcaption>Une soirée Magic réunissant plusieurs tables et plusieurs formats.</figcaption>
+      </figure>
+    </div>
+
+    <div class="club-gallery">
+      <figure>
+        <img src="assets/images/club/magic-close.webp" alt="Vue rapprochée d’une partie de Magic au club" loading="lazy">
+        <figcaption>Une partie en cours, avec decks, cartes et tapis personnalisés.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/images/club/magic-hero.webp" alt="Table multijoueur de Magic au Cercle" loading="lazy">
+        <figcaption>Le plaisir de jouer, d’échanger et de découvrir de nouvelles cartes.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/images/club/magic-room.webp" alt="Ambiance d’une soirée Magic au Cercle des Joueurs Paresseux" loading="lazy">
+        <figcaption>Une ambiance conviviale, ouverte aux habitués comme aux nouveaux joueurs.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+</main>
 
   <footer class="site-footer">
     <div class="container footer-main">

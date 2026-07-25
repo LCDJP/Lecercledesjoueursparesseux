@@ -1,21 +1,23 @@
 {
   "jeux-de-societe.html": {
-    "style": true,
-    "svg": true
+    "v16_css": true,
+    "club_photos": true,
+    "authenticity_text": true
   },
   "jeux-de-cartes.html": {
-    "style": true,
-    "svg": true
+    "v16_css": true,
+    "club_photos": true,
+    "authenticity_text": true
   },
   "wargame.html": {
-    "style": true,
-    "svg": true
+    "v16_css": true,
+    "club_photos": true,
+    "authenticity_text": true
   },
   "actualites.html": {
-    "style": true,
-    "svg": true
+    "v16_css": true,
+    "club_photos": true,
+    "authenticity_text": true
   },
-  "scripts/build-actualites.mjs": {
-    "persistent_fix": true
-  }
+  "images_count": 17
 }

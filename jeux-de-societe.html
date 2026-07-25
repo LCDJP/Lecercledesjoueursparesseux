@@ -97,6 +97,109 @@
 }
 </style>
 
+
+
+<style>
+/* V16 — vraies photos des soirées du club */
+.club-hero-photo {
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+  border-radius: 28px;
+  margin-top: 2rem;
+  box-shadow: 0 22px 55px rgba(22,44,34,.22);
+}
+.club-hero-photo img {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  object-fit: cover;
+  display: block;
+}
+.club-hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(12,30,24,.84), transparent 58%);
+}
+.club-hero-photo figcaption {
+  position: absolute;
+  z-index: 1;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 1rem;
+  color: #fff;
+  font-size: .98rem;
+  line-height: 1.5;
+  text-shadow: 0 2px 10px rgba(0,0,0,.5);
+}
+.club-authenticity {
+  margin: 1.4rem 0 0;
+  padding: 1rem 1.2rem;
+  border-left: 4px solid #e8b63e;
+  background: #fff7df;
+  border-radius: 0 14px 14px 0;
+  color: #29483a;
+}
+.club-story {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(300px,.95fr);
+  gap: clamp(1.5rem,4vw,3rem);
+  align-items: center;
+  margin: 2.5rem 0;
+}
+.club-story.reverse .club-story-media { order: -1; }
+.club-story-media {
+  overflow: hidden;
+  border-radius: 22px;
+  box-shadow: 0 16px 36px rgba(24,45,36,.17);
+  background: #203b30;
+}
+.club-story-media img {
+  display: block;
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+}
+.club-story-media figcaption {
+  padding: .75rem 1rem;
+  background: #203b30;
+  color: rgba(255,255,255,.9);
+  font-size: .88rem;
+}
+.club-gallery {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.club-gallery figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  background: #203b30;
+  box-shadow: 0 12px 28px rgba(24,45,36,.14);
+}
+.club-gallery img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  display: block;
+}
+.club-gallery figcaption {
+  color: #fff;
+  padding: .7rem .85rem;
+  font-size: .84rem;
+}
+@media (max-width: 820px) {
+  .club-story { grid-template-columns: 1fr; }
+  .club-story.reverse .club-story-media { order: initial; }
+  .club-gallery { grid-template-columns: 1fr; }
+  .club-hero-photo, .club-hero-photo img { min-height: 300px; }
+  .club-story-media img { height: 270px; }
+}
+</style>
+
 </head>
 <body>
 
@@ -139,6 +242,15 @@
         </div>
       </div>
     </section>
+
+<figure class="club-hero-photo">
+  <img src="assets/images/club/terraforming-mars.webp"
+       alt="Partie de Terraforming Mars organisée par le Cercle des Joueurs Paresseux"
+       width="1600" height="1200">
+  <figcaption>Terraforming Mars lors d’une soirée du Cercle des Joueurs Paresseux : plateau développé, matériel 3D et ambiance conviviale.</figcaption>
+</figure>
+<p class="club-authenticity"><strong>Des images authentiques du club.</strong> Toutes les photographies de cette page ont été prises pendant des parties organisées par le Cercle des Joueurs Paresseux.</p>
+
 
     <section class="section">
       <div class="container">
@@ -230,22 +342,9 @@
 
         </div>
 
-<div class="illustration-panel">
-<svg viewBox="0 0 640 420" role="img" aria-label="Plateau, cartes, meeples et dés">
-<rect x="35" y="35" width="570" height="350" rx="32" fill="#f4e6c8"/>
-<path d="M95 110h210v155H95z" fill="#88a77c" stroke="#274638" stroke-width="9"/>
-<path d="M125 140h150M125 180h150M125 220h150" stroke="#d8edd0" stroke-width="13"/>
-<circle cx="390" cy="132" r="48" fill="#f3b839"/>
-<circle cx="488" cy="132" r="48" fill="#de6a31"/>
-<path d="M365 220l48-38 48 38-18 78h-60z" fill="#58a6c7" stroke="#274638" stroke-width="8"/>
-<path d="M485 232c0-32 52-32 52 0v58h-52z" fill="#cf5548" stroke="#274638" stroke-width="8"/>
-<rect x="117" y="292" width="94" height="64" rx="12" fill="#fff" stroke="#274638" stroke-width="8"/>
-<circle cx="143" cy="316" r="7" fill="#274638"/><circle cx="184" cy="333" r="7" fill="#274638"/>
-<rect x="235" y="292" width="94" height="64" rx="12" fill="#ffd56a" stroke="#274638" stroke-width="8"/>
-<path d="M254 326h56" stroke="#274638" stroke-width="9"/>
-</svg>
-<p class="illustration-caption">Jeux experts, classiques accessibles et nouveautés apportées par les membres.</p>
-</div>
+
+
+
 </div>
 <div class="review-card-grid">
           <article>
@@ -289,7 +388,10 @@
       </div>
     </section>
 
-    <section class="section">
+    
+
+
+<section class="section">
       <div class="container content-narrow">
         <p class="section-label">Une ludothèque qui évolue</p>
         <h2>Bien plus que quelques titres connus</h2>
@@ -352,7 +454,52 @@
         <a class="button button-light" href="index.html#venir">Nous rencontrer à Vailhauquès</a>
       </div>
     </section>
-  </main>
+  
+<section class="section">
+  <div class="container">
+    <div class="club-story">
+      <div>
+        <p class="section-label">Un jeu emblématique du Cercle</p>
+        <h2>Terraforming Mars, notre référence des jeux experts</h2>
+        <p>Terraforming Mars occupe une place particulière dans la vie du club. Les parties permettent de construire progressivement une planète habitable, de développer des moteurs de production et de suivre des stratégies très différentes d’un joueur à l’autre.</p>
+        <p>Le matériel personnalisé et les éléments en relief visibles sur nos tables renforcent encore l’immersion. C’est un excellent exemple de ces jeux que les membres aiment ressortir régulièrement, tout en accueillant volontiers de nouvelles propositions.</p>
+      </div>
+      <figure class="club-story-media">
+        <img src="assets/images/club/terraforming-mars-table.webp" alt="Table complète de Terraforming Mars au club" loading="lazy">
+        <figcaption>Une partie complète de Terraforming Mars entre membres du Cercle.</figcaption>
+      </figure>
+    </div>
+
+    <div class="club-story reverse">
+      <div>
+        <p class="section-label">Coopération et hordes de figurines</p>
+        <h2>Zombicide</h2>
+        <p>Zombicide est apprécié pour ses scénarios coopératifs, ses nombreuses figurines et les décisions collectives qu’il impose. La table se remplit vite, les situations deviennent souvent spectaculaires et les échanges entre joueurs font pleinement partie de l’expérience.</p>
+      </div>
+      <figure class="club-story-media">
+        <img src="assets/images/club/zombicide.webp" alt="Partie de Zombicide organisée par le club" loading="lazy">
+        <figcaption>Une partie de Zombicide jouée pendant une soirée des Paresseux.</figcaption>
+      </figure>
+    </div>
+
+    <div class="club-gallery">
+      <figure>
+        <img src="assets/images/club/catan.webp" alt="Partie de Catane au Cercle des Joueurs Paresseux" loading="lazy">
+        <figcaption>Catane, un classique accessible et toujours efficace.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/images/club/abyss.webp" alt="Partie d’Abyss au Cercle des Joueurs Paresseux" loading="lazy">
+        <figcaption>Abyss, apprécié pour son univers et ses choix tactiques.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/images/club/zombicide-close.webp" alt="Vue rapprochée d’une partie de Zombicide au club" loading="lazy">
+        <figcaption>Les parties du club réunissent aussi bien des habitués que des joueurs en découverte.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+</main>
 
   <footer class="site-footer">
     <div class="container footer-main">
