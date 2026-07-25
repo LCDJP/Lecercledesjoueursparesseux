@@ -1,0 +1,18 @@
+{
+  "jeux-de-societe.html": {
+    "hero_reduced": true,
+    "starcraft_preserved": true
+  },
+  "jeux-de-cartes.html": {
+    "hero_reduced": true,
+    "starcraft_preserved": true,
+    "magic_hero_occurrences": 1,
+    "magic_room_occurrences": 1,
+    "magic_close_occurrences": 1,
+    "no_duplicate_gallery": true
+  },
+  "wargame.html": {
+    "hero_reduced": true,
+    "starcraft_preserved": true
+  }
+}

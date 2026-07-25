@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Club Warhammer, Age of Sigmar, Spearhead et StarCraft près de Montpellier | LCDJP</title>
-  <meta name="description" content="Jouez à Warhammer 40K, Age of Sigmar, Spearhead et StarCraft Tabletop au Cercle des Joueurs Paresseux à Vailhauquès près de Montpellier.">
+  <meta name="description" content="Découvrez les jeux de figurines pratiqués au Cercle des Joueurs Paresseux : Warhammer 40K, Age of Sigmar, Spearhead et StarCraft Tabletop Miniatures Game, dont le club a testé la bêta.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#263f32">
   <link rel="canonical" href="https://lcdjp.github.io/Lecercledesjoueursparesseux/wargame.html">
@@ -136,15 +136,17 @@
 .club-hero-photo {
   position: relative;
   overflow: hidden;
-  min-height: 420px;
-  border-radius: 28px;
+  min-height: 280px;
+  max-height: 420px;
+  border-radius: 24px;
   margin-top: 2rem;
   box-shadow: 0 22px 55px rgba(22,44,34,.22);
 }
 .club-hero-photo img {
   width: 100%;
   height: 100%;
-  min-height: 420px;
+  height: clamp(280px, 38vw, 420px);
+  min-height: 0;
   object-fit: cover;
   display: block;
 }
@@ -227,7 +229,8 @@
   .club-story { grid-template-columns: 1fr; }
   .club-story.reverse .club-story-media { order: initial; }
   .club-gallery { grid-template-columns: 1fr; }
-  .club-hero-photo, .club-hero-photo img { min-height: 300px; }
+  .club-hero-photo { min-height: 220px; max-height: 320px; }
+  .club-hero-photo img { height: clamp(220px, 58vw, 320px); min-height: 0; }
   .club-story-media img { height: 270px; }
 }
 </style>
@@ -573,6 +576,48 @@
       <figure>
         <img src="assets/images/club/aos-armies.webp" alt="Armées Age of Sigmar peintes par des joueurs du club" loading="lazy">
         <figcaption>Des figurines peintes et personnalisées par les joueurs.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <div class="club-story">
+      <div>
+        <p class="section-label">Une expérience rare vécue par le club</p>
+        <h2>StarCraft Tabletop : le Cercle a participé à la bêta</h2>
+        <p>Le Cercle des Joueurs Paresseux a eu l’occasion de participer à la phase bêta de <strong>StarCraft Tabletop Miniatures Game</strong>. Cette expérience a permis aux membres de découvrir le jeu avant sa diffusion plus large et de tester directement ses mécaniques sur table.</p>
+        <p>Le jeu a rapidement séduit par sa <strong>fluidité</strong>, sa prise en main accessible et la manière dont il transpose les affrontements de l’univers StarCraft en parties de figurines dynamiques. Les différentes forces offrent des styles visuels et tactiques très marqués, tout en conservant un déroulement facile à suivre.</p>
+        <p>Depuis cette participation à la bêta, StarCraft revient de plus en plus souvent sur les tables du club. Les photos ci-contre et ci-dessous ont été prises pendant nos propres sessions de test.</p>
+      </div>
+      <figure class="club-story-media">
+        <img src="assets/images/club/starcraft-beta-table.webp"
+             alt="Partie bêta de StarCraft Tabletop Miniatures Game au Cercle des Joueurs Paresseux"
+             loading="lazy">
+        <figcaption>Une partie de la bêta StarCraft Tabletop organisée au Cercle.</figcaption>
+      </figure>
+    </div>
+
+    <div class="club-gallery">
+      <figure>
+        <img src="assets/images/club/starcraft-beta-close.webp"
+             alt="Figurine extraterrestre lors de la bêta StarCraft Tabletop au club"
+             loading="lazy">
+        <figcaption>Vue rapprochée d’une unité pendant une session de test.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/images/club/starcraft-beta-terran.webp"
+             alt="Escouade de figurines futuristes pendant la bêta StarCraft Tabletop au club"
+             loading="lazy">
+        <figcaption>Une force futuriste déployée pendant les essais du jeu.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/images/club/starcraft-beta-table.webp"
+             alt="Champ de bataille StarCraft Tabletop Miniatures Game lors de la bêta"
+             loading="lazy">
+        <figcaption>Décors, unités et objectifs réunis sur une table de la bêta.</figcaption>
       </figure>
     </div>
   </div>

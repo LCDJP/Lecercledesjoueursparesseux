@@ -1,0 +1,10 @@
+{
+  "wargame_section": true,
+  "beta_mention": true,
+  "images": {
+    "starcraft-beta-table.webp": true,
+    "starcraft-beta-close.webp": true,
+    "starcraft-beta-terran.webp": true
+  },
+  "meta_description": true
+}
