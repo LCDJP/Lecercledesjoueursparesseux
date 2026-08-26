@@ -1,0 +1,17 @@
+{
+  "version": "V16.9",
+  "actualites_par_page": 8,
+  "generation_actuelle": "Actualités générées : 2 publication(s), 1 page(s) de 8 maximum.",
+  "test_18_actualites_3_pages": true,
+  "pagination_code_present": true,
+  "workflows_sequentialises": {
+    "facebook-actualites.yml": true,
+    "gallery.yml": true,
+    "images-webp.yml": true
+  },
+  "rebase_avant_push": {
+    "facebook-actualites.yml": true,
+    "gallery.yml": true,
+    "images-webp.yml": true
+  }
+}

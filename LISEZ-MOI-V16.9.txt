@@ -1,0 +1,27 @@
+LCDJP V16.9 — PAGINATION DES ACTUALITÉS
+
+Modification principale
+-----------------------
+La page Actualités n'affiche plus tout l'historique d'un seul coup.
+
+- 8 actualités maximum par page.
+- actualites.html = actualités les plus récentes.
+- actualites-page-2.html, actualites-page-3.html, etc. sont créées automatiquement si nécessaire.
+- Les anciennes actualités ne sont PAS supprimées : leurs pages individuelles restent en ligne et dans le sitemap.
+- La pagination est automatiquement mise à jour à chaque synchronisation Facebook.
+
+Pourquoi
+--------
+Cela évite une page Actualités de plus en plus longue et lourde à consulter,
+tout en conservant tout l'historique utile au référencement.
+
+Robustesse GitHub Actions
+-------------------------
+Les 3 workflows qui écrivent dans le dépôt partagent désormais le même groupe
+de concurrence et effectuent un git pull --rebase avant leur push.
+Cela réduit fortement le risque d'erreur "fetch first" lorsque plusieurs
+automatismes ou une modification manuelle se croisent.
+
+Aucune limite d'historique n'a été réduite : le script peut toujours conserver
+jusqu'à 120 publications dans les données, mais seulement 8 sont affichées
+par page d'index.

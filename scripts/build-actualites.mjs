@@ -8,6 +8,7 @@ const DATA_FILE = path.join(ROOT, "data", "facebook-posts.json");
 const NEWS_DIR = path.join(ROOT, "actualites");
 const INDEX_FILE = path.join(ROOT, "actualites.html");
 const SITEMAP_FILE = path.join(ROOT, "sitemap.xml");
+const NEWS_PER_PAGE = 8;
 
 fs.mkdirSync(NEWS_DIR, { recursive: true });
 
@@ -189,6 +190,12 @@ function sharedStyles() {
 .page-hero::after{content:"";position:absolute;right:-90px;bottom:-210px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
 .page-hero .container{position:relative;z-index:1}.page-hero .eyebrow{color:#ffd56a!important;font-weight:800;letter-spacing:.14em}.page-hero h1{color:#fff!important;max-width:900px;font-size:clamp(2rem,5vw,4rem)!important;line-height:1.08!important;text-shadow:0 3px 16px rgba(0,0,0,.24)}.page-hero .hero-intro{color:rgba(255,255,255,.95)!important;max-width:780px;font-size:clamp(1.02rem,2vw,1.22rem);line-height:1.65}
 .news-grid{margin-top:1.5rem;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;align-items:start}.news-card{display:flex!important;flex-direction:column!important;min-width:0;overflow:hidden;border-radius:18px;background:#fff;box-shadow:0 12px 32px rgba(31,48,39,.10)}.news-card-image{display:block;width:100%;height:180px;overflow:hidden;background:#e7ece8;flex:0 0 180px}.news-card-image img{display:block;width:100%;height:180px;object-fit:cover}.news-card-body{padding:1.35rem 1.4rem 1.5rem;min-width:0}.news-card-body .eyebrow{margin:0 0 .45rem;font-size:.78rem}.news-card-body h2{margin:.1rem 0 .55rem!important;font-size:clamp(1.35rem,2.2vw,1.85rem)!important;line-height:1.18!important;overflow-wrap:anywhere}.news-card-body h2 a{color:inherit;text-decoration:none}.news-card-body>p:not(.eyebrow){line-height:1.65}.news-topic-line{font-size:.9rem;color:#52645b;margin:.2rem 0 .85rem}.news-summary{margin:0 0 1.75rem;padding:1.35rem 1.5rem;border-left:5px solid #d7a82f;border-radius:0 16px 16px 0;background:#f7f3e8}.news-summary>p:not(.eyebrow){margin:.8rem 0;font-size:1.06rem;line-height:1.78}.news-source-note{margin-top:1.15rem!important;padding-top:1rem;border-top:1px solid rgba(70,80,73,.18);font-size:.9rem!important;color:#5e655f}.news-main-image{margin:0 0 1.6rem}.news-main-image img{display:block;width:100%;max-height:560px;object-fit:contain;border-radius:18px}.news-topic-links{display:flex;gap:.6rem;flex-wrap:wrap;margin:1.25rem 0}
+.news-pagination{display:flex;justify-content:center;align-items:center;gap:.5rem;flex-wrap:wrap;margin:2.25rem auto .5rem}
+.news-pagination a,.news-pagination span{display:inline-flex;align-items:center;justify-content:center;min-width:2.6rem;min-height:2.6rem;padding:.55rem .8rem;border:1px solid rgba(38,63,50,.2);border-radius:999px;text-decoration:none;font-weight:800;background:#fff;color:#263f32}
+.news-pagination a:hover{border-color:#263f32;background:#f4f1e8}
+.news-pagination .current{background:#263f32;color:#fff;border-color:#263f32}
+.news-pagination .wide{padding-left:1rem;padding-right:1rem}
+.news-count{text-align:center;color:#657269;font-size:.92rem;margin-top:1rem}
 @media(max-width:820px){.news-grid{grid-template-columns:1fr}.news-card-image,.news-card-image img{height:175px;flex-basis:175px}}
 `;
 }
@@ -243,15 +250,100 @@ for (const post of uniquePosts) {
   sitemapUrls.push({ loc: `${BASE_URL}actualites/${slug}.html`, lastmod: Number.isNaN(date.getTime()) ? new Date().toISOString().slice(0, 10) : date.toISOString().slice(0, 10) });
 }
 
+
 const emptyState = `<div class="info-card"><h2>Les actualités arrivent bientôt</h2><p>Cette page est alimentée automatiquement à partir des publications publiques de la page Facebook du club.</p><p><a class="button button-primary" href="${data.source || "#"}" target="_blank" rel="noopener noreferrer">Voir notre page Facebook</a></p></div>`;
-const indexSchema = {"@context":"https://schema.org","@type":"CollectionPage",name:"Dernières actualités du Cercle des Joueurs Paresseux",url:`${BASE_URL}actualites.html`,description:"Dernières actualités, publications, événements et photos du Cercle des Joueurs Paresseux à Vailhauquès, près de Montpellier."};
-const indexHtml = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dernières actualités du Cercle des Joueurs Paresseux | LCDJP</title><meta name="description" content="Dernières actualités, événements, jeux et photos du Cercle des Joueurs Paresseux à Vailhauquès, près de Montpellier."><meta name="robots" content="index, follow, max-image-preview:large"><link rel="canonical" href="${BASE_URL}actualites.html"><meta property="og:type" content="website"><meta property="og:title" content="Dernières actualités du Cercle des Joueurs Paresseux"><meta property="og:description" content="Des actualités développées automatiquement à partir des publications Facebook du Cercle."><meta property="og:url" content="${BASE_URL}actualites.html"><meta property="og:image" content="${BASE_URL}assets/images/logo-cercle-joueurs-paresseux.webp"><link rel="icon" href="assets/images/logo-cercle-joueurs-paresseux.webp"><link rel="stylesheet" href="assets/css/style.css"><style>${sharedStyles()}</style><script type="application/ld+json">${JSON.stringify(indexSchema)}</script></head><body><a class="skip-link" href="#contenu">Aller au contenu</a><header class="site-header"><div class="container header-inner"><a class="brand" href="index.html"><img src="assets/images/logo-cercle-joueurs-paresseux.webp" alt="" width="72" height="72"><span><strong>Le Cercle des Joueurs Paresseux</strong><small>Club de jeux près de Montpellier</small></span></a><nav aria-label="Navigation principale" class="main-nav page-nav"><a href="index.html">Accueil</a><a href="jeux-de-societe.html">Jeux de société</a><a href="jeux-de-cartes.html">Jeux de cartes</a><a href="wargame.html">Wargame</a><a aria-current="page" href="actualites.html">Actualités</a><a class="nav-cta" href="index.html#venir">Nous rejoindre</a></nav></div></header><main id="contenu"><section class="page-hero compact-hero"><div class="container"><p class="eyebrow">La vie du club</p><h1>Dernières actualités du Cercle des Joueurs Paresseux</h1><p class="hero-intro">Chaque carte donne assez d’informations pour comprendre le sujet avant d’ouvrir l’article. La publication Facebook originale reste accessible en fin de page.</p></div></section><section class="section"><div class="container news-grid">${cards.length ? cards.join("\n") : emptyState}</div></section></main><footer class="site-footer"><div class="container footer-main"><div><strong>Le Cercle des Joueurs Paresseux</strong><span>Vendredi à 20 h 30 · Salle de l'Âge d'Or, Vailhauquès</span></div></div></footer></body></html>`;
-fs.writeFileSync(INDEX_FILE, indexHtml, "utf8");
+
+function pageFile(pageNumber) {
+  return pageNumber === 1 ? "actualites.html" : `actualites-page-${pageNumber}.html`;
+}
+
+function pageUrl(pageNumber) {
+  return `${BASE_URL}${pageFile(pageNumber)}`;
+}
+
+function paginationHtml(currentPage, totalPages) {
+  if (totalPages <= 1) return "";
+  const parts = [];
+  if (currentPage > 1) {
+    parts.push(`<a class="wide" href="${pageFile(currentPage - 1)}" rel="prev">← Plus récentes</a>`);
+  }
+  for (let page = 1; page <= totalPages; page += 1) {
+    if (page === currentPage) {
+      parts.push(`<span class="current" aria-current="page">${page}</span>`);
+    } else if (
+      page === 1 ||
+      page === totalPages ||
+      Math.abs(page - currentPage) <= 1
+    ) {
+      parts.push(`<a href="${pageFile(page)}" aria-label="Actualités page ${page}">${page}</a>`);
+    } else if (
+      page === currentPage - 2 ||
+      page === currentPage + 2
+    ) {
+      parts.push(`<span aria-hidden="true">…</span>`);
+    }
+  }
+  if (currentPage < totalPages) {
+    parts.push(`<a class="wide" href="${pageFile(currentPage + 1)}" rel="next">Plus anciennes →</a>`);
+  }
+  return `<nav class="news-pagination" aria-label="Pagination des actualités">${parts.join("")}</nav>`;
+}
+
+function indexPageHtml(pageCards, currentPage, totalPages, totalNews) {
+  const canonical = pageUrl(currentPage);
+  const pageSuffix = currentPage === 1 ? "" : ` – page ${currentPage}`;
+  const title = `Dernières actualités du Cercle des Joueurs Paresseux${pageSuffix} | LCDJP`;
+  const description = currentPage === 1
+    ? "Dernières actualités, événements, jeux et photos du Cercle des Joueurs Paresseux à Vailhauquès, près de Montpellier."
+    : `Archives des actualités du Cercle des Joueurs Paresseux – page ${currentPage}.`;
+  const indexSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `Dernières actualités du Cercle des Joueurs Paresseux${pageSuffix}`,
+    url: canonical,
+    description
+  };
+  const prev = currentPage > 1 ? `<link rel="prev" href="${pageUrl(currentPage - 1)}">` : "";
+  const next = currentPage < totalPages ? `<link rel="next" href="${pageUrl(currentPage + 1)}">` : "";
+  const intro = currentPage === 1
+    ? "Les actualités les plus récentes du Cercle. Les anciennes publications restent disponibles grâce aux pages d’archives ci-dessous."
+    : `Archives des actualités du Cercle – page ${currentPage} sur ${totalPages}.`;
+
+  return `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escapeHtml(title)}</title><meta name="description" content="${escapeHtml(description)}"><meta name="robots" content="index, follow, max-image-preview:large"><link rel="canonical" href="${canonical}">${prev}${next}<meta property="og:type" content="website"><meta property="og:title" content="${escapeHtml(title)}"><meta property="og:description" content="${escapeHtml(description)}"><meta property="og:url" content="${canonical}"><meta property="og:image" content="${BASE_URL}assets/images/logo-cercle-joueurs-paresseux.webp"><link rel="icon" href="assets/images/logo-cercle-joueurs-paresseux.webp"><link rel="stylesheet" href="assets/css/style.css"><style>${sharedStyles()}</style><script type="application/ld+json">${JSON.stringify(indexSchema)}</script></head><body><a class="skip-link" href="#contenu">Aller au contenu</a><header class="site-header"><div class="container header-inner"><a class="brand" href="index.html"><img src="assets/images/logo-cercle-joueurs-paresseux.webp" alt="" width="72" height="72"><span><strong>Le Cercle des Joueurs Paresseux</strong><small>Club de jeux près de Montpellier</small></span></a><nav aria-label="Navigation principale" class="main-nav page-nav"><a href="index.html">Accueil</a><a href="jeux-de-societe.html">Jeux de société</a><a href="jeux-de-cartes.html">Jeux de cartes</a><a href="wargame.html">Wargame</a><a aria-current="page" href="actualites.html">Actualités</a><a class="nav-cta" href="index.html#venir">Nous rejoindre</a></nav></div></header><main id="contenu"><section class="page-hero compact-hero"><div class="container"><p class="eyebrow">La vie du club</p><h1>Dernières actualités du Cercle des Joueurs Paresseux</h1><p class="hero-intro">${escapeHtml(intro)}</p></div></section><section class="section"><div class="container news-grid">${pageCards.length ? pageCards.join("\n") : emptyState}</div><div class="container"><p class="news-count">${totalNews} actualité${totalNews > 1 ? "s" : ""} conservée${totalNews > 1 ? "s" : ""} sur le site.</p>${paginationHtml(currentPage, totalPages)}</div></section></main><footer class="site-footer"><div class="container footer-main"><div><strong>Le Cercle des Joueurs Paresseux</strong><span>Vendredi à 20 h 30 · Salle de l'Âge d'Or, Vailhauquès</span></div></div></footer></body></html>`;
+}
+
+// Supprimer d'anciennes pages de pagination devenues inutiles.
+for (const file of fs.readdirSync(ROOT)) {
+  if (/^actualites-page-\d+\.html$/i.test(file)) fs.unlinkSync(path.join(ROOT, file));
+}
+
+const totalPages = Math.max(1, Math.ceil(cards.length / NEWS_PER_PAGE));
+const paginationUrls = [];
+for (let pageNumber = 1; pageNumber <= totalPages; pageNumber += 1) {
+  const from = (pageNumber - 1) * NEWS_PER_PAGE;
+  const pageCards = cards.slice(from, from + NEWS_PER_PAGE);
+  fs.writeFileSync(
+    path.join(ROOT, pageFile(pageNumber)),
+    indexPageHtml(pageCards, pageNumber, totalPages, cards.length),
+    "utf8"
+  );
+  if (pageNumber > 1) {
+    paginationUrls.push({
+      loc: pageUrl(pageNumber),
+      lastmod: new Date().toISOString().slice(0, 10)
+    });
+  }
+}
 
 let sitemap = fs.existsSync(SITEMAP_FILE) ? fs.readFileSync(SITEMAP_FILE, "utf8") : `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>`;
 sitemap = sitemap.replace(/\s*<url>\s*<loc>https:\/\/lcdjp\.github\.io\/Lecercledesjoueursparesseux\/actualites\/.*?<\/url>\s*/gs, "\n");
+sitemap = sitemap.replace(/\s*<url>\s*<loc>https:\/\/lcdjp\.github\.io\/Lecercledesjoueursparesseux\/actualites-page-\d+\.html<\/loc>.*?<\/url>\s*/gs, "\n");
 if (!sitemap.includes(`${BASE_URL}actualites.html`)) sitemap = sitemap.replace("</urlset>", `<url><loc>${BASE_URL}actualites.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>\n</urlset>`);
+
+const paginationXml = paginationUrls.map(item => `<url><loc>${item.loc}</loc><lastmod>${item.lastmod}</lastmod><changefreq>weekly</changefreq><priority>0.55</priority></url>`).join("\n");
 const newsXml = sitemapUrls.map(item => `<url><loc>${item.loc}</loc><lastmod>${item.lastmod}</lastmod><changefreq>monthly</changefreq><priority>0.65</priority></url>`).join("\n");
-sitemap = sitemap.replace("</urlset>", `${newsXml ? `\n${newsXml}\n` : ""}</urlset>`);
+sitemap = sitemap.replace("</urlset>", `${paginationXml ? `\n${paginationXml}\n` : ""}${newsXml ? `\n${newsXml}\n` : ""}</urlset>`);
 fs.writeFileSync(SITEMAP_FILE, sitemap, "utf8");
-console.log(`Actualités V16.8 générées : ${uniquePosts.length} publication(s).`);
+
+console.log(`Actualités générées : ${uniquePosts.length} publication(s), ${totalPages} page(s) de ${NEWS_PER_PAGE} maximum.`);
+
