@@ -1,0 +1,25 @@
+LCDJP V16.11 — SYNCHRONISATION FACEBOOK 4 FOIS PAR JOUR
+
+But
+---
+Facebook ne montre qu’une seule publication exploitable au navigateur public.
+Plutôt que de tenter de reconstituer l’ancien historique, cette version sécurise les nouvelles publications à venir.
+
+Modifications
+-------------
+- 4 synchronisations automatiques par jour.
+- Horaires UTC : 05:17, 11:17, 17:17 et 21:17.
+- En heure d’été française : environ 07:17, 13:17, 19:17 et 23:17.
+- Récupération limitée à 12 publications potentielles par passage.
+- Défilement Facebook réduit à 4 passages (au lieu de 28).
+- L’historique déjà présent dans data/facebook-posts.json n’est pas touché.
+- La pagination par 8 actualités reste gérée par build-actualites.mjs déjà installé en V16.9.
+
+Installation
+------------
+Téléverser ces fichiers par-dessus ceux du dépôt actuel.
+Ne pas supprimer le dossier actualites, assets/actualites ni data/facebook-posts.json.
+
+Important
+---------
+Cette mise à jour ne contient volontairement PAS les données d’actualités : vos 3 publications actuelles restent donc intactes.
