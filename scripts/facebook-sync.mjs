@@ -9,7 +9,10 @@ const FACEBOOK_URL = process.env.FACEBOOK_PUBLIC_URL ||
   "https://www.facebook.com/people/Le-Cercle-des-Joueurs-Paresseux/61553506266229/";
 const DATA_FILE = path.join(ROOT, "data", "facebook-posts.json");
 const ASSET_DIR = path.join(ROOT, "assets", "actualites");
-const MAX_POSTS = Number(process.env.FACEBOOK_MAX_POSTS || 12);
+const MAX_POSTS = Number(process.env.FACEBOOK_MAX_POSTS || 40);
+const MAX_SCROLL_PASSES = Number(process.env.FACEBOOK_SCROLL_PASSES || 28);
+const SCROLL_WAIT_MS = Number(process.env.FACEBOOK_SCROLL_WAIT_MS || 1400);
+const MAX_STAGNANT_PASSES = Number(process.env.FACEBOOK_MAX_STAGNANT_PASSES || 6);
 
 fs.mkdirSync(ASSET_DIR, { recursive: true });
 
@@ -193,59 +196,136 @@ async function scrape() {
       }
     }
 
-    for (let i = 0; i < 4; i++) {
-      await page.mouse.wheel(0, 1100);
-      await page.waitForTimeout(1200);
+    const collected = new Map();
+
+    async function expandVisiblePosts() {
+      const labels = [/^Voir plus$/i, /^See more$/i, /^Afficher plus$/i];
+
+      for (const label of labels) {
+        const buttons = page.locator('[role="button"]').filter({ hasText: label });
+        const count = Math.min(await buttons.count(), 20);
+
+        for (let index = 0; index < count; index += 1) {
+          try {
+            const button = buttons.nth(index);
+            if (await button.isVisible()) {
+              await button.click({ timeout: 800 });
+              await page.waitForTimeout(120);
+            }
+          } catch {}
+        }
+      }
     }
 
-    return await page.evaluate(maxPosts => {
-      const items = [];
-      const candidates = [
-        ...document.querySelectorAll('[role="article"]'),
-        ...document.querySelectorAll("article")
-      ];
+    async function collectVisiblePosts() {
+      return await page.evaluate(() => {
+        const items = [];
+        const candidates = [
+          ...document.querySelectorAll('[role="article"]'),
+          ...document.querySelectorAll("article")
+        ];
 
-      for (const node of candidates) {
-        const text = (node.innerText || "").trim();
-        if (!text || text.length < 20) continue;
+        for (const node of candidates) {
+          const text = (node.innerText || "").trim();
+          if (!text || text.length < 20) continue;
 
-        const links = [...node.querySelectorAll("a[href]")].map(a => a.href);
-        const postUrl = links.find(href =>
-          /\/posts\/|story_fbid=|permalink\.php|\/photos\/|\/videos\//i.test(href)
-        ) || null;
+          const links = [...node.querySelectorAll("a[href]")].map(a => a.href);
+          const postUrl = links.find(href =>
+            /\/posts\/|story_fbid=|permalink\.php|\/photos\/|\/videos\//i.test(href)
+          ) || null;
 
-        const timeNode = node.querySelector("time");
-        const date =
-          timeNode?.dateTime ||
-          timeNode?.getAttribute("datetime") ||
-          null;
+          const timeNode = node.querySelector("time");
+          const labelledTime = [...node.querySelectorAll('a[aria-label], span[aria-label]')]
+            .map(el => el.getAttribute("aria-label"))
+            .find(Boolean);
+          const date =
+            timeNode?.dateTime ||
+            timeNode?.getAttribute("datetime") ||
+            labelledTime ||
+            null;
 
-        const images = [...node.querySelectorAll("img[src]")]
-          .map(img => ({
-            src: img.currentSrc || img.src,
-            alt: img.alt || "",
-            width: img.naturalWidth || 0,
-            height: img.naturalHeight || 0
-          }))
-          .filter(img =>
-            img.src &&
-            img.width >= 250 &&
-            img.height >= 180 &&
-            !/emoji|profile|logo|photo de profil/i.test(img.alt)
-          );
+          const images = [...node.querySelectorAll("img[src]")]
+            .map(img => ({
+              src: img.currentSrc || img.src,
+              alt: img.alt || "",
+              width: img.naturalWidth || 0,
+              height: img.naturalHeight || 0
+            }))
+            .filter(img =>
+              img.src &&
+              img.width >= 250 &&
+              img.height >= 180 &&
+              !/emoji|profile|logo|photo de profil/i.test(img.alt)
+            );
 
-        items.push({
-          text,
-          url: postUrl,
-          date,
-          image: images[0]?.src || null
-        });
+          items.push({
+            text,
+            url: postUrl,
+            date,
+            image: images[0]?.src || null
+          });
+        }
 
-        if (items.length >= maxPosts * 4) break;
+        return items;
+      });
+    }
+
+    let stagnantPasses = 0;
+    let previousCount = 0;
+    let passesDone = 0;
+
+    for (let pass = 0; pass < MAX_SCROLL_PASSES; pass += 1) {
+      passesDone = pass + 1;
+      await expandVisiblePosts();
+
+      const snapshot = await collectVisiblePosts();
+
+      for (const item of snapshot) {
+        const textKey = clean(item.text).slice(0, 500);
+        const key = normalizePostUrl(item.url) || `text:${sha(textKey)}`;
+        const current = collected.get(key);
+
+        if (!current || clean(item.text).length > clean(current.text).length) {
+          collected.set(key, item);
+        }
       }
 
-      return items;
-    }, MAX_POSTS);
+      if (collected.size === previousCount) {
+        stagnantPasses += 1;
+      } else {
+        stagnantPasses = 0;
+        previousCount = collected.size;
+      }
+
+      console.log(
+        `Facebook : passage ${passesDone}/${MAX_SCROLL_PASSES}, ${collected.size} bloc(s) unique(s) collecté(s).`
+      );
+
+      if (collected.size >= MAX_POSTS * 2) break;
+      if (pass >= 5 && stagnantPasses >= MAX_STAGNANT_PASSES) break;
+
+      await page.evaluate(() => {
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+      await page.waitForTimeout(SCROLL_WAIT_MS);
+    }
+
+    // Une dernière collecte après le dernier chargement différé.
+    await expandVisiblePosts();
+    const finalSnapshot = await collectVisiblePosts();
+    for (const item of finalSnapshot) {
+      const textKey = clean(item.text).slice(0, 500);
+      const key = normalizePostUrl(item.url) || `text:${sha(textKey)}`;
+      const current = collected.get(key);
+      if (!current || clean(item.text).length > clean(current.text).length) {
+        collected.set(key, item);
+      }
+    }
+
+    console.log(`Facebook : ${passesDone} passage(s) de défilement effectués.`);
+    console.log(`Facebook : ${collected.size} bloc(s) public(s) collecté(s) avant dédoublonnage.`);
+
+    return [...collected.values()].slice(0, MAX_POSTS * 4);
   } finally {
     await browser.close();
   }

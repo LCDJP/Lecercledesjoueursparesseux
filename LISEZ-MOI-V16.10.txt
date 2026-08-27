@@ -1,0 +1,41 @@
+LCDJP V16.10 — RATTRAPAGE RENFORCÉ DES ACTUALITÉS FACEBOOK
+
+But
+---
+Cette mise à jour ne remplace pas les actualités déjà enregistrées.
+Elle améliore uniquement la lecture de la page Facebook publique afin de tenter
+de retrouver davantage de publications anciennes et nouvelles.
+
+Modifications
+-------------
+- Jusqu’à 40 publications Facebook candidates au lieu de 12.
+- Jusqu’à 28 passages de défilement profond au lieu de 4.
+- Collecte progressive des publications à chaque défilement.
+- Tentative automatique d’ouverture des boutons « Voir plus ».
+- Arrêt automatique si Facebook ne charge plus rien après plusieurs passages.
+- Journaux GitHub Actions plus détaillés : nombre de passages et de blocs collectés.
+- L’historique existant est fusionné et conservé (jusqu’à 120 publications).
+- La pagination V16.9 reste inchangée : 8 actualités maximum par page.
+
+Installation
+------------
+Téléverser les fichiers de cette archive PAR-DESSUS le dépôt actuel.
+Ne pas supprimer data/facebook-posts.json ni le dossier actualites : ils contiennent
+l’historique déjà récupéré.
+
+Après installation
+------------------
+Lancer une fois manuellement :
+Actions > Synchroniser les actualités Facebook > Run workflow.
+
+Dans le journal « Lire Facebook et générer les actualités SEO », regarder les lignes :
+- Facebook : ... passage(s) de défilement effectués.
+- Facebook : ... bloc(s) public(s) collecté(s) avant dédoublonnage.
+- Publications uniques détectées aujourd'hui : ...
+- Publications uniques conservées : ...
+
+Limite importante
+-----------------
+Facebook peut limiter ce qu’un visiteur non connecté peut voir. Cette version
+explore beaucoup plus profondément la page, mais ne peut pas forcer Facebook à
+rendre publiques des publications qu’il masque au navigateur automatisé.
