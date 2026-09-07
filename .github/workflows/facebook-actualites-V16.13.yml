@@ -1,0 +1,85 @@
+name: Synchroniser les actualités Facebook
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 5 * * *"
+    - cron: "17 11 * * *"
+    - cron: "17 17 * * *"
+    - cron: "17 21 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lcdjp-content-writes
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Installer les dépendances
+        run: npm install
+
+      - name: Installer Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Lire Facebook et générer les actualités SEO
+        env:
+          FACEBOOK_PUBLIC_URL: "https://www.facebook.com/people/Le-Cercle-des-Joueurs-Paresseux/61553506266229/"
+          FACEBOOK_MAX_POSTS: "12"
+          FACEBOOK_SCROLL_PASSES: "4"
+          FACEBOOK_SCROLL_WAIT_MS: "900"
+          FACEBOOK_MAX_STAGNANT_PASSES: "2"
+        run: npm run sync
+
+      - name: Vérifier les archives générées
+        shell: bash
+        run: |
+          set -e
+          missing=0
+          while IFS= read -r page; do
+            if [ ! -f "$page" ]; then
+              echo "ERREUR : archive référencée mais absente : $page"
+              missing=1
+            fi
+          done < <(grep -rhoE 'actualites-page-[0-9]+\.html' actualites.html actualites-page-*.html 2>/dev/null | sort -u || true)
+          if [ "$missing" -ne 0 ]; then
+            exit 1
+          fi
+          echo "Archives vérifiées."
+          ls -1 actualites-page-*.html 2>/dev/null || echo "Pas encore de page d'archives."
+
+      - name: Enregistrer les nouveautés
+        shell: bash
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Ne remplace jamais l'historique par un fichier fourni dans un patch :
+          # les actualités sont régénérées uniquement depuis les données déjà présentes dans le dépôt.
+          git add actualites.html actualites assets/actualites data/facebook-posts.json sitemap.xml
+
+          # IMPORTANT : ajoute, modifie ET supprime automatiquement toutes les pages d'archives,
+          # quel que soit leur nombre futur (page 2, 3, 4, ...).
+          git add -A -- 'actualites-page-*.html'
+
+          if git diff --cached --quiet; then
+            echo "Aucune nouveauté à enregistrer."
+          else
+            git commit -m "Actualisation automatique depuis Facebook"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
