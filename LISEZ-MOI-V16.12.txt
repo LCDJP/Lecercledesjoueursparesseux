@@ -1,0 +1,50 @@
+LCDJP — V16.12 — CORRECTION DES ARCHIVES D'ACTUALITÉS
+======================================================
+
+OBJECTIF
+--------
+Corriger l'erreur 404 de la page 2 des actualités sans toucher aux actualités déjà présentes.
+
+CE PATCH NE CONTIENT VOLONTAIREMENT PAS :
+- data/facebook-posts.json
+- actualites.html
+- actualites-page-2.html
+- le dossier actualites/
+- les images d'actualités
+
+Donc l'installation de ce ZIP ne remplace ni ne supprime aucune actualité existante.
+
+CORRECTION
+----------
+Le générateur créait bien actualites-page-2.html, mais le workflow GitHub n'ajoutait
+pas les fichiers actualites-page-*.html au commit. La page 1 contenait donc un lien
+vers une page 2 qui restait uniquement dans la machine temporaire de GitHub Actions.
+
+V16.12 ajoute désormais automatiquement au commit :
+- actualites.html
+- actualites-page-2.html, page 3, page 4, etc., quel que soit leur nombre futur
+- les articles individuels
+- les images
+- data/facebook-posts.json
+- sitemap.xml
+
+Un contrôle supplémentaire bloque aussi le commit si une page d'actualités contient
+un lien vers une page d'archives qui n'existe pas. Cela évite de republier à l'avenir
+une pagination cassée.
+
+INSTALLATION
+------------
+1. Décompresser ce ZIP.
+2. Dans le dépôt GitHub, téléverser les fichiers en conservant leurs dossiers.
+3. Remplacer les fichiers existants quand GitHub le demande.
+4. Commit changes.
+5. Lancer manuellement le workflow « Synchroniser les actualités Facebook » une fois.
+
+IMPORTANT
+---------
+Le premier lancement après installation va repartir du data/facebook-posts.json DÉJÀ
+PRÉSENT dans le dépôt. Il régénérera donc les pages à partir de l'historique actuel,
+sans repartir des anciens fichiers contenus dans ce patch puisqu'il n'y en a aucun.
+
+La pagination reste à 8 actualités maximum par page. À 9 actualités, la page 2 sera
+créée et publiée. À 17, une page 3 sera créée et publiée, etc.
