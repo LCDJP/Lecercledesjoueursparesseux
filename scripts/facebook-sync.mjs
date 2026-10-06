@@ -113,11 +113,25 @@ function mergePostVersions(current, candidate) {
   const currentText = removeFacebookInterfaceText(current?.text);
   const candidateText = removeFacebookInterfaceText(candidate?.text);
 
+  // Une extraction ciblée du message Facebook est prioritaire sur un ancien
+  // texte récupéré au niveau de tout le bloc, qui pouvait contenir des commentaires.
+  const candidateIsCleaner = candidate?.text_source === "facebook-message-selector";
+  const currentIsCleaner = current?.text_source === "facebook-message-selector";
+  const chosenText = candidateIsCleaner && !currentIsCleaner
+    ? candidateText
+    : candidateText.length > currentText.length
+      ? candidateText
+      : currentText;
+  const chosenSource = candidateIsCleaner && !currentIsCleaner
+    ? candidate.text_source
+    : (currentIsCleaner ? current.text_source : (candidate?.text_source || current?.text_source || null));
+
   return {
     ...(current || {}),
     ...(candidate || {}),
     id: current?.id || candidate?.id,
-    text: candidateText.length > currentText.length ? candidateText : currentText,
+    text: chosenText,
+    text_source: chosenSource,
     url: normalizePostUrl(current?.url) || normalizePostUrl(candidate?.url) || FACEBOOK_URL,
     local_image: current?.local_image || candidate?.local_image || null,
     image_url: current?.image_url || candidate?.image_url || null,
@@ -222,32 +236,79 @@ async function scrape() {
         const items = [];
         const candidates = [
           ...document.querySelectorAll('[role="article"]'),
-          ...document.querySelectorAll("article")
+          ...document.querySelectorAll('article')
         ];
 
-        for (const node of candidates) {
-          const text = (node.innerText || "").trim();
-          if (!text || text.length < 20) continue;
+        const cleanText = value => String(value || '')
+          .replace(/\u00a0/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
 
-          const links = [...node.querySelectorAll("a[href]")].map(a => a.href);
+        function getMessageText(node) {
+          // Facebook utilise généralement ces attributs pour distinguer
+          // le texte de la publication du reste du bloc (commentaires,
+          // boutons, compteurs, etc.). On privilégie donc EXCLUSIVEMENT
+          // ces zones lorsqu'elles sont disponibles.
+          const selectors = [
+            '[data-ad-preview="message"]',
+            '[data-ad-comet-preview="message"]'
+          ];
+
+          const messages = [];
+          for (const selector of selectors) {
+            for (const message of node.querySelectorAll(selector)) {
+              const text = cleanText(message.innerText || message.textContent);
+              if (text && !messages.includes(text)) messages.push(text);
+            }
+          }
+
+          if (messages.length) {
+            return {
+              text: messages.join('\n\n'),
+              source: 'facebook-message-selector'
+            };
+          }
+
+          // Secours pour les variantes de Facebook qui n'exposent pas
+          // l'attribut ci-dessus : on retire les commentaires imbriqués
+          // avant de lire le texte restant du bloc principal.
+          const clone = node.cloneNode(true);
+          for (const nested of clone.querySelectorAll('[role="article"] article, [role="article"] [role="article"]')) {
+            if (nested !== clone) nested.remove();
+          }
+          for (const el of clone.querySelectorAll('[aria-label*="comment" i], [data-testid*="comment" i]')) {
+            el.remove();
+          }
+
+          const fallback = cleanText(clone.innerText || clone.textContent);
+          return fallback
+            ? { text: fallback, source: 'facebook-article-fallback' }
+            : { text: '', source: 'none' };
+        }
+
+        for (const node of candidates) {
+          const extracted = getMessageText(node);
+          if (!extracted.text || extracted.text.length < 5) continue;
+
+          const links = [...node.querySelectorAll('a[href]')].map(a => a.href);
           const postUrl = links.find(href =>
             /\/posts\/|story_fbid=|permalink\.php|\/photos\/|\/videos\//i.test(href)
           ) || null;
 
-          const timeNode = node.querySelector("time");
+          const timeNode = node.querySelector('time');
           const labelledTime = [...node.querySelectorAll('a[aria-label], span[aria-label]')]
-            .map(el => el.getAttribute("aria-label"))
+            .map(el => el.getAttribute('aria-label'))
             .find(Boolean);
           const date =
             timeNode?.dateTime ||
-            timeNode?.getAttribute("datetime") ||
+            timeNode?.getAttribute('datetime') ||
             labelledTime ||
             null;
 
-          const images = [...node.querySelectorAll("img[src]")]
+          const images = [...node.querySelectorAll('img[src]')]
             .map(img => ({
               src: img.currentSrc || img.src,
-              alt: img.alt || "",
+              alt: img.alt || '',
               width: img.naturalWidth || 0,
               height: img.naturalHeight || 0
             }))
@@ -259,7 +320,8 @@ async function scrape() {
             );
 
           items.push({
-            text,
+            text: extracted.text,
+            text_source: extracted.source,
             url: postUrl,
             date,
             image: images[0]?.src || null
@@ -285,7 +347,11 @@ async function scrape() {
         const key = normalizePostUrl(item.url) || `text:${sha(textKey)}`;
         const current = collected.get(key);
 
-        if (!current || clean(item.text).length > clean(current.text).length) {
+        if (
+          !current ||
+          item.text_source === "facebook-message-selector" ||
+          clean(item.text).length > clean(current.text).length
+        ) {
           collected.set(key, item);
         }
       }
@@ -317,7 +383,11 @@ async function scrape() {
       const textKey = clean(item.text).slice(0, 500);
       const key = normalizePostUrl(item.url) || `text:${sha(textKey)}`;
       const current = collected.get(key);
-      if (!current || clean(item.text).length > clean(current.text).length) {
+      if (
+        !current ||
+        item.text_source === "facebook-message-selector" ||
+        clean(item.text).length > clean(current.text).length
+      ) {
         collected.set(key, item);
       }
     }
@@ -370,7 +440,8 @@ for (const item of scraped) {
     text,
     url: url || prior?.url || FACEBOOK_URL,
     image_url: item.image || prior?.image_url || null,
-    local_image: local_image || null
+    local_image: local_image || null,
+    text_source: item.text_source || prior?.text_source || null
   };
 
   const duplicateIndex = detected.findIndex(post =>
