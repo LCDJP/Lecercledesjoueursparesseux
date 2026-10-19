@@ -1,8 +1,17 @@
 {
   "source": "https://www.facebook.com/people/Le-Cercle-des-Joueurs-Paresseux/61553506266229/",
-  "updated_at": "2026-10-18T23:15:52.329Z",
-  "scrape_status": "no-new-public-post-detected",
+  "updated_at": "2026-10-19T10:46:28.975Z",
+  "scrape_status": "ok",
   "posts": [
+    {
+      "id": "b75c77f41e86707a",
+      "date": "2026-10-19T10:46:28.975Z",
+      "text": "Le Cercle des Joueurs ParesseuxContenu IA · il y a 16 heures16 h · Partagé avec : PublicToutes les réactions :2J’aimeCommenter",
+      "url": "https://www.facebook.com/permalink.php?story_fbid=pfbid05oMnexLGjuhta62uw1Ua5EGdPzxTrh96caUntRMPjoUEHmN3t7uUqEm7RXtMJpL9l&id=61553506266229",
+      "image_url": "https://scontent-ord5-2.xx.fbcdn.net/v/t39.30808-6/857014478_122267963666116875_2939118700646341088_n.jpg?stp=dst-jpg_tt6&cstp=mx1086x1448&ctp=p526x296&_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=q2Zh354uiQMQ7kNvwFHx8Cb&_nc_oc=Adqp9L21mnoRbNRMUgKaqEM2KDPsH7OBt6Ez8CuIYsWwuZYoMEX4Z618Y3pfcc2JCrk&_nc_zt=23&_nc_ht=scontent-ord5-2.xx&_nc_gid=T2glCye1rpxZ1eR2aTwWOQ&_nc_ss=7b289&oh=00_AQPM0VbwziJhUaCCy-8tqWS_Qgcr3SDEPGFXmIL29UmSVA&oe=6ADBC561",
+      "local_image": "assets/actualites/facebook-b75c77f41e86707a.jpg",
+      "text_source": "facebook-article-fallback"
+    },
     {
       "id": "f6c4f6927ae67e20",
       "date": "2026-10-18T19:27:28.514Z",
