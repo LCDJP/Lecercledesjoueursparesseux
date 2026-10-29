@@ -1,8 +1,17 @@
 {
   "source": "https://www.facebook.com/people/Le-Cercle-des-Joueurs-Paresseux/61553506266229/",
-  "updated_at": "2026-10-29T11:31:37.454Z",
-  "scrape_status": "no-new-public-post-detected",
+  "updated_at": "2026-10-29T17:26:34.655Z",
+  "scrape_status": "ok",
   "posts": [
+    {
+      "id": "ea239e70293b19ff",
+      "date": "2026-10-29T17:26:34.655Z",
+      "text": "Invocations - CimagamesEncore un nouvel invocateur, on adore ! Merci à vous de continuer à faire découvrir INVOCATIONS ! Et bon courage pour les préparatifs d'Halloween ! 9 h",
+      "url": "https://www.facebook.com/permalink.php?story_fbid=pfbid028DhWBTDv1xDrF63J2dDMm2wmYPqu3Xfkb4TUaGBT797Vkp3Kjt84jX8kcNHcEHobl&id=61553506266229",
+      "image_url": null,
+      "local_image": null,
+      "text_source": "facebook-article-fallback"
+    },
     {
       "id": "e725484066021b58",
       "date": "2026-10-28T21:41:16.442Z",
