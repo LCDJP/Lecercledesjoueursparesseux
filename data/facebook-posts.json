@@ -1,8 +1,17 @@
 {
   "source": "https://www.facebook.com/people/Le-Cercle-des-Joueurs-Paresseux/61553506266229/",
-  "updated_at": "2026-11-01T21:12:59.757Z",
-  "scrape_status": "no-new-public-post-detected",
+  "updated_at": "2026-11-02T00:46:42.105Z",
+  "scrape_status": "ok",
   "posts": [
+    {
+      "id": "694d71502d129872",
+      "date": "2026-11-02T00:46:42.105Z",
+      "text": "Christel SoC’était absolument génial !! Un immense bravo à tous les bénévoles, associations et commerçants pour cette superbe après-midi, vous avez assuré ! On a adoré l’ambiance, un vrai régal pour petits et grands ! Merci pour tout ce travail et cette bell… En voir plus6 h4",
+      "url": "https://www.facebook.com/permalink.php?story_fbid=pfbid093kgPZ8DT72N1qa67ak1nHtDW1ShqbLZ5VvWjgMgetR2mH4hk1HixiRCQPzNGDT5l&id=61553506266229",
+      "image_url": null,
+      "local_image": null,
+      "text_source": "facebook-article-fallback"
+    },
     {
       "id": "626ff4a6c1857384",
       "date": "2026-10-31T16:06:43.248Z",
