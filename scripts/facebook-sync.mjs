@@ -120,19 +120,29 @@ function samePost(a, b) {
 function mergePostVersions(current, candidate) {
   const currentText = removeFacebookInterfaceText(current?.text);
   const candidateText = removeFacebookInterfaceText(candidate?.text);
+  const currentClean = current?.text_source === "facebook-message-selector" && isUsablePostText(currentText);
+  const candidateClean = candidate?.text_source === "facebook-message-selector" && isUsablePostText(candidateText);
+  const currentTruncated = /(?:…|\.\.\.)\s*(?:En|Voir plus)?\s*$/i.test(currentText);
+  const candidateTruncated = /(?:…|\.\.\.)\s*(?:En|Voir plus)?\s*$/i.test(candidateText);
 
-  // Une extraction ciblée du message Facebook est prioritaire sur un ancien
-  // texte récupéré au niveau de tout le bloc, qui pouvait contenir des commentaires.
-  const candidateIsCleaner = candidate?.text_source === "facebook-message-selector";
-  const currentIsCleaner = current?.text_source === "facebook-message-selector";
-  const chosenText = candidateIsCleaner && !currentIsCleaner
-    ? candidateText
-    : candidateText.length > currentText.length
-      ? candidateText
-      : currentText;
-  const chosenSource = candidateIsCleaner && !currentIsCleaner
-    ? candidate.text_source
-    : (currentIsCleaner ? current.text_source : (candidate?.text_source || current?.text_source || null));
+  // Ne jamais remplacer une version propre et plus complète par une extraction
+  // plus courte/tronquée. Une extraction ciblée ne gagne que si elle est réellement
+  // plus fiable ou si l'ancienne version est manifestement polluée.
+  let chosenText = currentText;
+  let chosenSource = current?.text_source || candidate?.text_source || null;
+  if (!currentClean && candidateClean) {
+    chosenText = candidateText;
+    chosenSource = candidate.text_source;
+  } else if (currentClean && candidateClean) {
+    if ((!candidateTruncated && currentTruncated) ||
+        (candidateText.length > currentText.length && !candidateTruncated)) {
+      chosenText = candidateText;
+      chosenSource = candidate.text_source;
+    }
+  } else if (!currentText || candidateText.length > currentText.length) {
+    chosenText = candidateText;
+    chosenSource = candidate?.text_source || chosenSource;
+  }
 
   return {
     ...(current || {}),
@@ -230,7 +240,7 @@ async function scrape() {
           ...document.querySelectorAll('article')
         ];
         let clicks = 0;
-        const labels = new Set(['voir plus', 'see more', 'afficher plus']);
+        const labels = ['voir plus', 'see more', 'afficher plus'];
         const normalize = value => String(value || '')
           .replace(/\u00a0/g, ' ')
           .replace(/\s+/g, ' ')
@@ -242,9 +252,11 @@ async function scrape() {
             '[role="button"], button, [tabindex="0"], span, div'
           );
           for (const element of candidates) {
-            if (!labels.has(normalize(element.innerText || element.textContent))) continue;
-            // Remonter vers le véritable élément interactif lorsque possible.
-            const target = element.closest(' [role="button"], button') || element;
+            const label = normalize(element.innerText || element.textContent);
+            const aria = normalize(element.getAttribute('aria-label'));
+            if (!labels.some(value => label === value || aria === value || label.startsWith(value + ' '))) continue;
+            // Le libellé peut être imbriqué dans un span : remonter au contrôle cliquable.
+            const target = element.closest('[role="button"], button, [tabindex="0"]') || element;
             if (target.dataset.lcdjpExpanded === '1') continue;
             target.dataset.lcdjpExpanded = '1';
             target.click();
@@ -256,7 +268,7 @@ async function scrape() {
 
       if (expanded > 0) {
         // Laisser Facebook remplacer le texte tronqué par le texte complet.
-        await page.waitForTimeout(500);
+        await page.waitForTimeout(1100);
       }
       return expanded;
     }

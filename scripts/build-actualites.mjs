@@ -35,32 +35,41 @@ function slugify(value) {
 }
 
 function cleanFacebookText(value = "") {
-  return normalizeSpace(value)
-    .replace(/^Le Cercle des Joueurs Paresseux\s*/i, "")
-    .replace(/^\d+\s*(min|h|j|sem\.?|mois)\s*[·•-]\s*/i, "")
+  let text = normalizeSpace(value);
+  // Retirer l'en-tête Facebook (nom de page + date relative) lorsqu'il précède
+  // le vrai message. On ne coupe pas sur les mots du texte éditorial.
+  text = text.replace(/^Le Cercle des Joueurs Paresseux\s*/i, "");
+  text = text.replace(/^\d+\s*(?:min|h|j|sem\.?|mois)\s*[·•-]\s*/i, "");
+  text = text.replace(/^\d{1,2}\s+(?:janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+à\s+\d{1,2}:\d{2}\s*[·•-]\s*/i, "");
+
+  // Tout ce qui suit ces marqueurs appartient à l'interface/commentaires et non
+  // au texte principal. On conserve le début du post au lieu de rejeter l'article.
+  const cutMarkers = [
+    /\s+Toutes les réactions\s*:?/i,
+    /\s+\d+\s+de commentaires?\b/i,
+    /\s+J’aime\s+Commenter\b/i,
+    /\s+Partagé avec\s*:\s*Public/i,
+    /\s+Contenu IA\s*[·•]/i
+  ];
+  for (const marker of cutMarkers) {
+    const index = text.search(marker);
+    if (index >= 0) text = text.slice(0, index).trim();
+  }
+  text = text
     .replace(/\b(J’aime|Commenter|Partager|Like|Comment|Share)\b/gi, " ")
-    .replace(/\bToutes les réactions\s*:?\s*\d*(?:\s+\d+)*\b/gi, " ")
-    .replace(/\b\d+\s+(?:de\s+)?commentaires?\b/gi, " ")
-    .replace(/\b\d+\s+(commentaire|commentaires|partage|partages|réaction|réactions)\b/gi, " ")
     .replace(/\bVoir plus\b/gi, " ")
     .replace(/\s+[Vv]…(?:\s+En)?\s*$/u, "…")
     .replace(/\s+/g, " ")
     .trim();
+  return text;
 }
 
 function isPublishablePost(post) {
-  const raw = normalizeSpace(post?.text || "");
-  const cleaned = cleanFacebookText(raw);
-  if (cleaned.length < 18) return false;
-
-  // Les entrées issues de l'ancien secours Facebook peuvent contenir
-  // l'interface (date relative, Contenu IA, visibilité, réactions, boutons).
-  const interfaceMarkers = /partagé avec\s*:\s*public|toutes les réactions|contenu ia|\bj’aime\b|\bcommenter\b|\bvoir plus\b|\bil y a\s+\d+\s*(?:min|minutes?|h|heures?|j|jours?)\b/i;
-  if (interfaceMarkers.test(raw)) return false;
-
-  // Écarte les textes qui ne contiennent que le nom de la page et des contrôles.
+  const cleaned = cleanFacebookText(post?.text || "");
   const meaningful = cleaned.replace(/le cercle des joueurs paresseux/ig, "").trim();
-  return meaningful.length >= 18 && /[A-Za-zÀ-ÿ]{3}/.test(meaningful);
+  // Un post court reste publiable : il vaut mieux afficher fidèlement une
+  // accroche réelle que masquer silencieusement une actualité historique.
+  return meaningful.length >= 12 && /[A-Za-zÀ-ÿ]{3}/.test(meaningful);
 }
 
 function splitSentences(value = "") {
@@ -255,7 +264,9 @@ for (const file of fs.readdirSync(NEWS_DIR)) if (file.endsWith(".html")) fs.unli
 
 const cards = [];
 const sitemapUrls = [];
-for (const post of uniquePosts) {
+for (const originalPost of uniquePosts) {
+  const post = { ...originalPost, text: cleanFacebookText(originalPost.text) };
+  if (!isPublishablePost(post)) continue;
   const title = makeArticleTitle(post);
   const summaries = buildSummaries(post);
   const date = new Date(post.date);
