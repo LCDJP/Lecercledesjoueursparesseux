@@ -221,22 +221,44 @@ async function scrape() {
     const collected = new Map();
 
     async function expandVisiblePosts() {
-      const labels = [/^Voir plus$/i, /^See more$/i, /^Afficher plus$/i];
+      // Facebook rend souvent les textes longs derrière un lien/bouton
+      // « Voir plus ». On le cherche DANS chaque publication, pas dans
+      // toute la page, pour éviter de cliquer sur des éléments sans rapport.
+      const expanded = await page.evaluate(() => {
+        const articles = [
+          ...document.querySelectorAll('[role="article"]'),
+          ...document.querySelectorAll('article')
+        ];
+        let clicks = 0;
+        const labels = new Set(['voir plus', 'see more', 'afficher plus']);
+        const normalize = value => String(value || '')
+          .replace(/\u00a0/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim()
+          .toLocaleLowerCase('fr-FR');
 
-      for (const label of labels) {
-        const buttons = page.locator('[role="button"]').filter({ hasText: label });
-        const count = Math.min(await buttons.count(), 20);
-
-        for (let index = 0; index < count; index += 1) {
-          try {
-            const button = buttons.nth(index);
-            if (await button.isVisible()) {
-              await button.click({ timeout: 800 });
-              await page.waitForTimeout(120);
-            }
-          } catch {}
+        for (const article of articles) {
+          const candidates = article.querySelectorAll(
+            '[role="button"], button, [tabindex="0"], span, div'
+          );
+          for (const element of candidates) {
+            if (!labels.has(normalize(element.innerText || element.textContent))) continue;
+            // Remonter vers le véritable élément interactif lorsque possible.
+            const target = element.closest(' [role="button"], button') || element;
+            if (target.dataset.lcdjpExpanded === '1') continue;
+            target.dataset.lcdjpExpanded = '1';
+            target.click();
+            clicks += 1;
+          }
         }
+        return clicks;
+      });
+
+      if (expanded > 0) {
+        // Laisser Facebook remplacer le texte tronqué par le texte complet.
+        await page.waitForTimeout(500);
       }
+      return expanded;
     }
 
     async function collectVisiblePosts() {
@@ -337,6 +359,7 @@ async function scrape() {
     for (let pass = 0; pass < MAX_SCROLL_PASSES; pass += 1) {
       passesDone = pass + 1;
       await expandVisiblePosts();
+      await expandVisiblePosts();
 
       const snapshot = await collectVisiblePosts();
 
@@ -375,6 +398,7 @@ async function scrape() {
     }
 
     // Une dernière collecte après le dernier chargement différé.
+    await expandVisiblePosts();
     await expandVisiblePosts();
     const finalSnapshot = await collectVisiblePosts();
     for (const item of finalSnapshot) {
