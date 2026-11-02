@@ -48,6 +48,21 @@ function cleanFacebookText(value = "") {
     .trim();
 }
 
+function isPublishablePost(post) {
+  const raw = normalizeSpace(post?.text || "");
+  const cleaned = cleanFacebookText(raw);
+  if (cleaned.length < 18) return false;
+
+  // Les entrées issues de l'ancien secours Facebook peuvent contenir
+  // l'interface (date relative, Contenu IA, visibilité, réactions, boutons).
+  const interfaceMarkers = /partagé avec\s*:\s*public|toutes les réactions|contenu ia|\bj’aime\b|\bcommenter\b|\bvoir plus\b|\bil y a\s+\d+\s*(?:min|minutes?|h|heures?|j|jours?)\b/i;
+  if (interfaceMarkers.test(raw)) return false;
+
+  // Écarte les textes qui ne contiennent que le nom de la page et des contrôles.
+  const meaningful = cleaned.replace(/le cercle des joueurs paresseux/ig, "").trim();
+  return meaningful.length >= 18 && /[A-Za-zÀ-ÿ]{3}/.test(meaningful);
+}
+
 function splitSentences(value = "") {
   return String(value)
     .split(/(?<=[.!?…])\s+/u)
@@ -226,12 +241,14 @@ if (!fs.existsSync(DATA_FILE)) throw new Error(`Fichier introuvable : ${DATA_FIL
 const data = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
 const uniquePosts = [];
 for (const post of (data.posts || [])) {
-  if (!post?.text || !post?.date) continue;
+  if (!post?.text || !post?.date || !isPublishablePost(post)) continue;
   const key = post.id || crypto.createHash("sha1").update(`${post.date}|${cleanFacebookText(post.text)}`).digest("hex");
   const textKey = cleanFacebookText(post.text).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim().slice(0, 260);
-  const existingIndex = uniquePosts.findIndex(item => item.key === key || item.textKey === textKey || item.textKey.includes(textKey) || textKey.includes(item.textKey));
+  // Dédoublonnage strict : identifiant identique uniquement. Deux publications
+  // distinctes peuvent légitimement reprendre la même affiche ou un texte proche.
+  const existingIndex = uniquePosts.findIndex(item => item.key === key);
   if (existingIndex === -1) uniquePosts.push({ ...post, key, textKey });
-  else if (post.text.length > uniquePosts[existingIndex].text.length) uniquePosts[existingIndex] = { ...post, key: uniquePosts[existingIndex].key, textKey };
+  else if (post.text.length > uniquePosts[existingIndex].text.length) uniquePosts[existingIndex] = { ...post, key, textKey };
 }
 uniquePosts.sort((a, b) => new Date(b.date) - new Date(a.date));
 for (const file of fs.readdirSync(NEWS_DIR)) if (file.endsWith(".html")) fs.unlinkSync(path.join(NEWS_DIR, file));
@@ -345,5 +362,6 @@ const newsXml = sitemapUrls.map(item => `<url><loc>${item.loc}</loc><lastmod>${i
 sitemap = sitemap.replace("</urlset>", `${paginationXml ? `\n${paginationXml}\n` : ""}${newsXml ? `\n${newsXml}\n` : ""}</urlset>`);
 fs.writeFileSync(SITEMAP_FILE, sitemap, "utf8");
 
-console.log(`Actualités générées : ${uniquePosts.length} publication(s), ${totalPages} page(s) de ${NEWS_PER_PAGE} maximum.`);
+console.log(`Actualités générées : ${uniquePosts.length} publication(s) valides, ${totalPages} page(s) de ${NEWS_PER_PAGE} maximum.`);
+console.log(`Publications écartées car extraction Facebook polluée ou inutilisable : ${(data.posts || []).length - uniquePosts.length}.`);
 

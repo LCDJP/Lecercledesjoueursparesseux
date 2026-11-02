@@ -62,6 +62,14 @@ function removeFacebookInterfaceText(value = "") {
     .trim();
 }
 
+function isUsablePostText(value = "") {
+  const text = clean(value);
+  if (text.length < 18) return false;
+  if (/partagé avec\s*:\s*public|toutes les réactions|contenu ia|j’aime|commenter|\d+\s*(?:min|h|j)\s*[·•]/i.test(text)) return false;
+  const meaningful = text.replace(/le cercle des joueurs paresseux/ig, "").trim();
+  return meaningful.length >= 18 && /[A-Za-zÀ-ÿ]{3}/.test(meaningful);
+}
+
 function fingerprint(value = "") {
   return removeFacebookInterfaceText(value)
     .normalize("NFD")
@@ -87,8 +95,8 @@ function samePost(a, b) {
   const aUrl = normalizePostUrl(a.url);
   const bUrl = normalizePostUrl(b.url);
 
-  if (aUrl && bUrl && aUrl === bUrl) return true;
-  if (a.id && b.id && a.id === b.id) return true;
+  if (aUrl && bUrl) return aUrl === bUrl;
+  if (a.id && b.id) return a.id === b.id;
 
   const aFingerprint = fingerprint(a.text);
   const bFingerprint = fingerprint(b.text);
@@ -269,21 +277,11 @@ async function scrape() {
             };
           }
 
-          // Secours pour les variantes de Facebook qui n'exposent pas
-          // l'attribut ci-dessus : on retire les commentaires imbriqués
-          // avant de lire le texte restant du bloc principal.
-          const clone = node.cloneNode(true);
-          for (const nested of clone.querySelectorAll('[role="article"] article, [role="article"] [role="article"]')) {
-            if (nested !== clone) nested.remove();
-          }
-          for (const el of clone.querySelectorAll('[aria-label*="comment" i], [data-testid*="comment" i]')) {
-            el.remove();
-          }
-
-          const fallback = cleanText(clone.innerText || clone.textContent);
-          return fallback
-            ? { text: fallback, source: 'facebook-article-fallback' }
-            : { text: '', source: 'none' };
+          // Pas de récupération du bloc complet en secours : il contient
+          // fréquemment les réactions, commentaires et commandes Facebook.
+          // Mieux vaut manquer temporairement une publication que fabriquer
+          // une fausse actualité à partir de l'interface.
+          return { text: '', source: 'none' };
         }
 
         for (const node of candidates) {
@@ -413,8 +411,9 @@ const now = new Date();
 const detected = [];
 
 for (const item of scraped) {
+  // Seules les extractions ciblées du message sont acceptées.
   const text = removeFacebookInterfaceText(item.text);
-  if (!text) continue;
+  if (item.text_source !== "facebook-message-selector" || !isUsablePostText(text)) continue;
 
   const url = normalizePostUrl(item.url);
   const prior = (existing.posts || []).find(post =>
