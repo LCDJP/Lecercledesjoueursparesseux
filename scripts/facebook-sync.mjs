@@ -91,30 +91,19 @@ function similarityKey(value = "") {
 
 function samePost(a, b) {
   if (!a || !b) return false;
-
   const aUrl = normalizePostUrl(a.url);
   const bUrl = normalizePostUrl(b.url);
-
-  if (aUrl && bUrl) return aUrl === bUrl;
-  if (a.id && b.id) return a.id === b.id;
-
-  const aFingerprint = fingerprint(a.text);
-  const bFingerprint = fingerprint(b.text);
-
-  if (aFingerprint && bFingerprint && aFingerprint === bFingerprint) return true;
-
-  const aSimilarity = similarityKey(a.text);
-  const bSimilarity = similarityKey(b.text);
-
-  return Boolean(
-    aSimilarity &&
-    bSimilarity &&
-    (
-      aSimilarity === bSimilarity ||
-      aFingerprint.includes(bFingerprint) ||
-      bFingerprint.includes(aFingerprint)
-    )
-  );
+  if (aUrl && bUrl && aUrl === bUrl) return true;
+  if (a.id && b.id && a.id === b.id) return true;
+  const norm = value => fingerprint(value || "");
+  const x = norm(a.text), y = norm(b.text);
+  if (!x || !y) return false;
+  if (x === y || x.startsWith(y) || y.startsWith(x)) return true;
+  const ax = new Set(x.split(" ").filter(w => w.length > 3));
+  const by = new Set(y.split(" ").filter(w => w.length > 3));
+  const overlap = [...ax].filter(w => by.has(w)).length;
+  return Math.min(ax.size, by.size) >= 12 &&
+    overlap / Math.min(ax.size, by.size) > 0.88;
 }
 
 function mergePostVersions(current, candidate) {
@@ -326,6 +315,11 @@ async function scrape() {
           const postUrl = links.find(href =>
             /\/posts\/|story_fbid=|permalink\.php|\/photos\/|\/videos\//i.test(href)
           ) || null;
+
+          // Ne conserver que les publications publiées sur la page du Cercle.
+          // Les blocs de commentaires et les publications d'autres pages n'ont pas
+          // le permalink de la page officielle.
+          if (!postUrl || !/([?&]id=61553506266229(?:&|$)|\/people\/Le-Cercle-des-Joueurs-Paresseux\/61553506266229)/i.test(postUrl)) continue;
 
           const timeNode = node.querySelector('time');
           const labelledTime = [...node.querySelectorAll('a[aria-label], span[aria-label]')]
