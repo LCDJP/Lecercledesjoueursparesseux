@@ -1,8 +1,17 @@
 {
   "source": "https://www.facebook.com/people/Le-Cercle-des-Joueurs-Paresseux/61553506266229/",
-  "updated_at": "2026-11-07T20:55:40.500Z",
-  "scrape_status": "no-new-public-post-detected",
+  "updated_at": "2026-11-08T00:39:47.820Z",
+  "scrape_status": "ok",
   "posts": [
+    {
+      "id": "6c2fa23b755cd193",
+      "date": "2026-11-08T00:39:47.820Z",
+      "text": "Une semaine après Halloween, replongez dans l’ambiance de l’Expérience Z-31 ! Voici quelques photos pour revivre les frissons ou découvrir cette belle après-midi !… En",
+      "url": "https://www.facebook.com/apevailhauquesmurles/posts/pfbid02MhsF3nK15AsxwgrvTuMoTK8gFHEvgDYMCcgpCHX9iF7RqSrgdNC6EdS7eV7nMzk9l",
+      "image_url": "https://scontent-iad6-1.xx.fbcdn.net/v/t39.30808-6/893897912_1814780096725558_4530387589842961004_n.jpg?stp=dst-jpg_tt6&cstp=mx1600x1200&ctp=s590x590&_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=w5rrO2OXtYYQ7kNvwEqd5S8&_nc_oc=AdrzcuU7q6qPwxmlQ60lt0yeYenvry0_26kDn1QRL77NTRgNaTbvoRYFfcv-HAqDUrY&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&_nc_gid=stF1B4ao6j7lq9lBkEEAFg&_nc_ss=7b289&oh=00_AQSyIPgkaEpK--0PtP0lCu3DAIzdg3vGk6xN91GFfFjGcw&oe=6AF59792",
+      "local_image": "assets/actualites/facebook-6c2fa23b755cd193.jpg",
+      "text_source": "facebook-message-selector"
+    },
     {
       "id": "76d02bd5bd84accc",
       "date": "2026-11-07T11:44:11.267Z",
