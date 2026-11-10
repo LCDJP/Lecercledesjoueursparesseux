@@ -1,8 +1,17 @@
 {
   "source": "https://www.facebook.com/people/Le-Cercle-des-Joueurs-Paresseux/61553506266229/",
-  "updated_at": "2026-11-10T00:43:09.814Z",
-  "scrape_status": "no-new-public-post-detected",
+  "updated_at": "2026-11-10T03:35:49.265Z",
+  "scrape_status": "ok",
   "posts": [
+    {
+      "id": "3791a3e083ce17a4",
+      "date": "2026-11-10T03:35:49.265Z",
+      "text": "Une semaine après Halloween, replongez dans l’ambiance de l’Expérience Z-31 ! Voici quelques photos pour revivre les frissons ou découvrir cette belle après-midi ! Un immense merci à tous pour votre présence, votre enthousiasme et votre participation ! Grâce à vous, cette édition a été une belle réussite ! Un évènement organisé en collaboration avec Les Lutins Bonheur, Le Cercle des Joueurs Paresseux et l'Espace Jeunesse Vailhauques !",
+      "url": "https://www.facebook.com/apevailhauquesmurles/posts/pfbid02N1fmKHcU5L4vgQDZBv2azz8nqYDewYMRfawyWfuVFd2QC91MZZsMCiRbXqSoEMBQl",
+      "image_url": "https://scontent-atl3-2.xx.fbcdn.net/v/t39.30808-6/893897912_1814780096725558_4530387589842961004_n.jpg?stp=dst-jpg_tt6&cstp=mx1600x1200&ctp=s590x590&_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=0GKiDWM331EQ7kNvwGSuZk7&_nc_oc=AdpekyjyO4GcntvfHPR9z7mR-WAS8zjMnTbvJrBSfbCLKSvSH5M61g-wXMDMf9XIgUI&_nc_zt=23&_nc_ht=scontent-atl3-2.xx&_nc_gid=9IGZHsVinBROBBHPBHOxUQ&_nc_ss=7b289&oh=00_AQTK0hHtx-vEmjR91IBe1YN7mxhIzlCVnFm13yLoktNNDg&oe=6AF872D2",
+      "local_image": "assets/actualites/facebook-3791a3e083ce17a4.jpg",
+      "text_source": "facebook-message-selector"
+    },
     {
       "id": "32dd329d074c431f",
       "date": "2026-11-08T17:56:38.728Z",
