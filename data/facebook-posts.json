@@ -1,8 +1,17 @@
 {
   "source": "https://www.facebook.com/people/Le-Cercle-des-Joueurs-Paresseux/61553506266229/",
-  "updated_at": "2026-11-13T18:31:43.755Z",
-  "scrape_status": "no-new-public-post-detected",
+  "updated_at": "2026-11-13T22:40:50.834Z",
+  "scrape_status": "ok",
   "posts": [
+    {
+      "id": "c2c7adde2f4d5857",
+      "date": "2026-11-13T22:40:50.834Z",
+      "text": "Hop hop hop, reprise du rythme normal des soirées du vendredi soir !… En",
+      "url": "https://www.facebook.com/permalink.php?story_fbid=pfbid0AFYeQ4Gux6SzGBMMgN7MboakL6Cms21yp4k1zmKXe8ByT9QNdbN5c9nYBT6bS679l&id=61553506266229",
+      "image_url": "https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-6/899822739_122271272216116875_5172522780603831060_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x1536&ctp=s590x590&_nc_cat=102&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_ohc=cimz_7W0Z0IQ7kNvwFaHAPs&_nc_oc=AdpN8f0FhAzujmPqgBa2pAUntGfRI_G4Gr5V8w3JWsBgaV9mEFTVklmdip3M9iHFfp8&_nc_zt=23&_nc_ht=scontent-iad3-1.xx&_nc_gid=CsHEP56WooqvkkHzQxR7LA&_nc_ss=7b289&oh=00_AQSuqsimOhA5Dy6Y8_zMVzFsfG1IHxFeGKfWnW9ABpCJhQ&oe=6AFD7F8B",
+      "local_image": "assets/actualites/facebook-c2c7adde2f4d5857.jpg",
+      "text_source": "facebook-message-selector"
+    },
     {
       "id": "61e387fdaeb8da11",
       "date": "2026-11-12T22:45:25.015Z",
