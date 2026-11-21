@@ -1,8 +1,17 @@
 {
   "source": "https://www.facebook.com/people/Le-Cercle-des-Joueurs-Paresseux/61553506266229/",
-  "updated_at": "2026-11-21T17:58:30.809Z",
-  "scrape_status": "no-new-public-post-detected",
+  "updated_at": "2026-11-21T22:12:14.739Z",
+  "scrape_status": "ok",
   "posts": [
+    {
+      "id": "39fd9487932f870b",
+      "date": "2026-11-21T22:12:14.739Z",
+      "text": "Petite soirée tranquille le vendredi dernier. Des petits jeux pour enfants, du « invocations » devenu un classique de l asso pour les moyens, et les grands se sont plon… En",
+      "url": "https://www.facebook.com/permalink.php?story_fbid=pfbid02qwhUokSf9VkvsosvUDJ1F9h1NdPn8scqWogJCwDzh2fk4Jb1VaW2CpHD5TrXAqRtl&id=61553506266229",
+      "image_url": "https://scontent-sea5-2.xx.fbcdn.net/v/t39.30808-6/907058807_122272301246116875_1344686483915172080_n.jpg?stp=dst-jpg_tt6&cstp=mx1506x1080&ctp=s590x590&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_ohc=5-jyRAyu6fcQ7kNvwGK8rMP&_nc_oc=Adrs8kpsEbGrtJY077glohZQ3iDCWJk82-3x-8pVG8wQMVzyM8Ja6X-9ZKEJERv5C1U&_nc_zt=23&_nc_ht=scontent-sea5-2.xx&_nc_gid=JZcVLbGz1AKUi95BYPpm_Q&_nc_ss=7b289&oh=00_AQQMRrY-jPNkQa9ay08-1NZvKyrPFsTBRvPrpLcXXnq9ag&oe=6B07DE8D",
+      "local_image": "assets/actualites/facebook-39fd9487932f870b.jpg",
+      "text_source": "facebook-message-selector"
+    },
     {
       "id": "e4ea4c61a78fb114",
       "date": "2026-11-20T23:07:05.025Z",
