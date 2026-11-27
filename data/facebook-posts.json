@@ -1,8 +1,17 @@
 {
   "source": "https://www.facebook.com/people/Le-Cercle-des-Joueurs-Paresseux/61553506266229/",
-  "updated_at": "2026-11-27T15:04:04.834Z",
-  "scrape_status": "no-new-public-post-detected",
+  "updated_at": "2026-11-27T19:58:26.491Z",
+  "scrape_status": "ok",
   "posts": [
+    {
+      "id": "21cab277301e4dbc",
+      "date": "2026-11-27T19:58:26.491Z",
+      "text": "Moon colony bloodbath, Terra mystica, et invocation! C était le menu de vendredi soir !… En",
+      "url": "https://www.facebook.com/permalink.php?story_fbid=pfbid0QSEVU5ReqENNpezXHJ7HGW6ZJsHmA7c9ynmqxxfjs3NzzpvbpHXVWq7kBX4uFqvAl&id=61553506266229",
+      "image_url": "https://scontent-sea5-2.xx.fbcdn.net/v/t39.30808-6/925735217_122272900076116875_4038109019765107592_n.jpg?stp=dst-jpg_tt6&cstp=mx1536x2048&ctp=s590x590&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=833d8c&_nc_ohc=mALwx4uzh6kQ7kNvwF_xfIP&_nc_oc=AdqedGAY9WFVdxYeZFJKOZ_sqnNrHN9zWylx3c1gHoEVr56TiA1LBVitrQqTG_Nzu4o&_nc_zt=23&_nc_ht=scontent-sea5-2.xx&_nc_gid=EPQm9os4mn4F80R_REzluA&_nc_ss=7b389&oh=00_AQUC7fl_BGu2q7_HepGh4QT_jHNJHUOgT3ltNeczbJNpbg&oe=6B0F9E94",
+      "local_image": "assets/actualites/facebook-21cab277301e4dbc.jpg",
+      "text_source": "facebook-message-selector"
+    },
     {
       "id": "1a900c583f05cacd",
       "date": "2026-11-26T01:00:32.108Z",
